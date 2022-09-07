@@ -22,11 +22,12 @@ func main() {
 
 	part := 1
 	if len(os.Args) > 2 {
-		part, err := strconv.Atoi(os.Args[2])
+		v, err := strconv.Atoi(os.Args[2])
 		if err != nil || part > 2 {
 			fmt.Printf("Part must be 1 or 2, got %v\n", part)
 			os.Exit(2)
 		}
+		part = v
 	}
 
 	day, err := strconv.Atoi(os.Args[1])
@@ -44,15 +45,15 @@ func main() {
 
 	solution, ok := adventofcode.SolveDay(day, part, input)
 	if !ok {
-		fmt.Printf("No solution for Day %v\n", day)
+		fmt.Printf("No solution for Day %d, Part %d\n", day, part)
 		os.Exit(1)
 	}
 
-	fmt.Printf("Solution for day %v: %v", day, solution)
+	fmt.Printf("Solution for day %02d, part %d: %s", day, part, solution)
 	err = saveOutput(day, solution)
 
 	if err != nil {
-		fmt.Printf("Error saving solution to day %v\n", day)
+		fmt.Printf("Error saving solution to day %d, part %d\n", day, part)
 		log.Fatal(err)
 	}
 }
