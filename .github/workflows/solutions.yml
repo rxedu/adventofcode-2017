@@ -16,7 +16,7 @@ jobs:
       - name: Build
         uses: goreleaser/goreleaser-action@v3
         with:
-          args: release --skip-publish --skip-sign --snapshot --timeout=60m
+          args: build --single-target --snapshot
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
