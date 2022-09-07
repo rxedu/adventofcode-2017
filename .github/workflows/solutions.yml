@@ -1,0 +1,39 @@
+---
+name: solutions
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: make dist
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: adventofcode
+          path: dist/adventofcode-2017_linux_amd64_v1/adventofcode
+          retention-days: 2
+  solve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        day: [1]
+        part: [1, 2]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: adventofcode
+      - name: Solve
+        run: ./adventofcode ${{ matrix.day }} ${{ matrix.part }}
