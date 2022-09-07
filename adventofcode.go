@@ -1,9 +1,9 @@
-package gomodule
+package adventofcode
 
 import (
 	"fmt"
 
-	"github.com/makenew/gomodule/internal/todo"
+	"github.com/rxedu/adventofcode-2017/internal/todo"
 )
 
 func PrintMessage() {
