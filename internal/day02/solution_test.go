@@ -12,7 +12,11 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: [][]int{{}}, o: 0},
+		{i: [][]int{
+			{5, 1, 9, 5},
+			{7, 5, 3},
+			{2, 4, 6, 8},
+		}, o: 18},
 	}
 
 	var wg sync.WaitGroup
