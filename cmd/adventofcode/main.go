@@ -20,11 +20,19 @@ func main() {
 		os.Exit(2)
 	}
 
+	part := 1
+	if len(os.Args) > 2 {
+		part, err := strconv.Atoi(os.Args[2])
+		if err != nil || part > 2 {
+			fmt.Printf("Part must be 1 or 2, got %v\n", part)
+			os.Exit(2)
+		}
+	}
+
 	day, err := strconv.Atoi(os.Args[1])
 	if err != nil || day < 1 {
 		fmt.Printf("Day must be positive integer, got %v\n", day)
 		os.Exit(2)
-
 	}
 
 	input, err := loadInput(day)
@@ -34,7 +42,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	solution, ok := adventofcode.SolveDay(day, input)
+	solution, ok := adventofcode.SolveDay(day, part, input)
 	if !ok {
 		fmt.Printf("No solution for Day %v\n", day)
 		os.Exit(1)

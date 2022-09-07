@@ -2,8 +2,8 @@ package adventofcode
 
 type Solver = func(string) string
 
-func SolveDay(day int, input string) (string, bool) {
-	solver, ok := GetSolver(day)
+func SolveDay(day int, part int, input string) (string, bool) {
+	solver, ok := GetSolver(day, part)
 	if !ok {
 		return solver(""), false
 	}
@@ -12,8 +12,8 @@ func SolveDay(day int, input string) (string, bool) {
 	return solution, true
 }
 
-func GetSolver(day int) (Solver, bool) {
-	solvers := createSolvers()
+func GetSolver(day int, part int) (Solver, bool) {
+	solvers := createSolvers(part)
 
 	defaultSolver := func(input string) string { return "" }
 

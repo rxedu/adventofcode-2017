@@ -5,11 +5,15 @@ import (
 	"strings"
 )
 
-func Solve(input string) string {
-	return serialize(solve(parse(input)))
+func SolvePartOne(input string) string {
+	return serialize(solvePartOne(parse(input)))
 }
 
-func solve(input []int) int {
+func SolvePartTwo(input string) string {
+	return serialize(solvePartTwo(parse(input)))
+}
+
+func solvePartOne(input []int) int {
 	if len(input) == 0 {
 		return 0
 	}
@@ -31,6 +35,10 @@ func solve(input []int) int {
 	}
 
 	return sum
+}
+
+func solvePartTwo(input []int) int {
+	return 0
 }
 
 func parse(input string) []int {

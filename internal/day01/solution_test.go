@@ -10,7 +10,7 @@ type example struct {
 	o int
 }
 
-func TestExamples(t *testing.T) {
+func TestPartOneExamples(t *testing.T) {
 	examples := []example{
 		{i: []int{}, o: 0},
 		{i: []int{1, 1, 2, 2}, o: 3},
@@ -25,7 +25,7 @@ func TestExamples(t *testing.T) {
 		go func(e example) {
 
 			defer wg.Done()
-			got := solve(e.i)
+			got := solvePartOne(e.i)
 			if got != e.o {
 				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, got, e.i, e.o)
 			}
