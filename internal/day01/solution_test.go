@@ -27,7 +27,7 @@ func TestPartOneExamples(t *testing.T) {
 			defer wg.Done()
 			got := solvePartOne(e.i)
 			if got != e.o {
-				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, got, e.i, e.o)
+				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, e.o, e.i, got)
 			}
 		}(e)
 	}
@@ -54,7 +54,7 @@ func TestPartTwoExamples(t *testing.T) {
 			defer wg.Done()
 			got := solvePartTwo(e.i)
 			if got != e.o {
-				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, got, e.i, e.o)
+				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, e.o, e.i, got)
 			}
 		}(e)
 	}
