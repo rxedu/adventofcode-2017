@@ -50,7 +50,7 @@ func main() {
 	}
 
 	fmt.Printf("Solution for day %02d, part %d: %s", day, part, solution)
-	err = saveOutput(day, solution)
+	err = saveOutput(day, part, solution)
 
 	if err != nil {
 		fmt.Printf("Error saving solution to day %d, part %d\n", day, part)
@@ -59,7 +59,7 @@ func main() {
 }
 
 func loadInput(day int) (string, error) {
-	name := getName(day)
+	name := fmt.Sprintf("%02d.txt", day)
 	data, err := os.ReadFile(path.Join(INPUT_PATH, name))
 	if err != nil {
 		return "", err
@@ -68,8 +68,8 @@ func loadInput(day int) (string, error) {
 	return strings.TrimSuffix(string(data), "\n"), nil
 }
 
-func saveOutput(day int, solution string) error {
-	name := getName(day)
+func saveOutput(day int, part int, solution string) error {
+	name := fmt.Sprintf("%02d-%d.txt", day, part)
 	err := os.MkdirAll(OUTPUT_PATH, os.ModePerm)
 	if err != nil {
 		return err
@@ -81,8 +81,4 @@ func saveOutput(day int, solution string) error {
 	}
 
 	return nil
-}
-
-func getName(day int) string {
-	return fmt.Sprintf("%02d.txt", day)
 }
