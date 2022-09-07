@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: adventofcode
-          path: dist/adventofcode-2017_linux_amd64_v1/adventofcode
+          path: dist/adventofcode-2017-go_linux_amd64_v1/adventofcode
           retention-days: 2
   solve:
     runs-on: ubuntu-latest
