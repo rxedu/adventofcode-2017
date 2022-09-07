@@ -2,6 +2,7 @@ package day02
 
 import (
 	"strconv"
+	"strings"
 )
 
 func SolvePartOne(input string) string {
@@ -21,10 +22,25 @@ func solvePartTwo(input [][]int) int {
 }
 
 func parse(input string) [][]int {
-	return [][]int{}
+	strRows := strings.Split(input, "\n")
+
+	matrix := make([][]int, len(strRows))
+	for i, strRow := range strRows {
+		strCol := strings.Split(strRow, "\t")
+
+		matrix[i] = make([]int, len(strRow))
+		for j, v := range strCol {
+			w, err := strconv.Atoi(v)
+			matrix[i][j] = w
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+
+	return matrix
 }
 
 func serialize(output int) string {
 	return strconv.Itoa(output)
-
 }
