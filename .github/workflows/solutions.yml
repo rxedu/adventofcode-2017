@@ -38,5 +38,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: adventofcode
+      - name: Fix permission
+        run: chmod u+x adventofcode
       - name: Solve
         run: ./adventofcode ${{ matrix.day }} ${{ matrix.part }}
