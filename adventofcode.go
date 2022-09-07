@@ -1,11 +1,29 @@
 package adventofcode
 
-import (
-	"fmt"
+type Solver = func(string) string
 
-	"github.com/rxedu/adventofcode-2017/internal/todo"
-)
+func SolveDay(day int, input string) (string, bool) {
+	solver, ok := GetSolver(day)
+	if !ok {
+		return solver(""), false
+	}
 
-func PrintMessage() {
-	fmt.Println(todo.GetMessage())
+	solution := solver(input)
+	return solution, true
+}
+
+func GetSolver(day int) (Solver, bool) {
+	solvers := createSolvers()
+
+	defaultSolver := func(input string) string { return "" }
+
+	if day < 1 {
+		return defaultSolver, false
+	}
+
+	if day > len(solvers) {
+		return defaultSolver, false
+	}
+
+	return solvers[day-1], true
 }
