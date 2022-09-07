@@ -56,7 +56,6 @@ func findRatio(row []int) int {
 				return m / n
 			}
 		}
-
 	}
 
 	return 0
