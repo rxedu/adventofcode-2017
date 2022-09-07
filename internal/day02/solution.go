@@ -31,6 +31,34 @@ func solvePartOne(input [][]int) int {
 }
 
 func solvePartTwo(input [][]int) int {
+	var checksum int
+	for _, row := range input {
+		checksum += findRatio(row)
+	}
+
+	return checksum
+}
+
+func findRatio(row []int) int {
+	if len(row) < 2 {
+		return 0
+	}
+
+	for i, n := range row {
+		for j, m := range row {
+			if i == j {
+				continue
+			}
+			if n%m == 0 {
+				return n / m
+			}
+			if m%n == 0 {
+				return m / n
+			}
+		}
+
+	}
+
 	return 0
 }
 
