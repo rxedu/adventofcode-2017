@@ -6,6 +6,12 @@
 
 [Advent of Code 2017](https://adventofcode.com/2017)
 
+### Usage
+
+```
+$ adventofcode 1
+```
+
 ## Installation
 
 Simply import this module into your project
