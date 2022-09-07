@@ -8,8 +8,10 @@
 
 ### Usage
 
+Get a solution by passing the day and part as CLI arguments.
+
 ```
-$ adventofcode 1
+$ adventofcode 1 2
 ```
 
 ## Installation
@@ -56,6 +58,14 @@ A [Go] version compatible with the one specified in `go.mod`,
 [Go]: https://golang.org/
 [golangci-lint]: https://golangci-lint.run/
 [GoReleaser]: https://goreleaser.com/
+
+### Local Usage
+
+Get a solution by passing the day and part as CLI arguments.
+
+```
+$ go run cmd/adventofcode/main.go 1 2
+```
 
 ## GitHub Actions
 
