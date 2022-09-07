@@ -3,6 +3,8 @@ package day02
 import (
 	"strconv"
 	"strings"
+
+	"golang.org/x/exp/constraints"
 )
 
 func SolvePartOne(input string) string {
@@ -14,7 +16,18 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input [][]int) int {
-	return 0
+	var checksum int
+	for _, row := range input {
+		a := row[0]
+		b := row[0]
+		for _, v := range row {
+			a = max(a, v)
+			b = min(b, v)
+		}
+		checksum += a - b
+	}
+
+	return checksum
 }
 
 func solvePartTwo(input [][]int) int {
@@ -26,10 +39,10 @@ func parse(input string) [][]int {
 
 	matrix := make([][]int, len(strRows))
 	for i, strRow := range strRows {
-		strCol := strings.Split(strRow, "\t")
+		strCols := strings.Split(strRow, "\t")
 
-		matrix[i] = make([]int, len(strRow))
-		for j, v := range strCol {
+		matrix[i] = make([]int, len(strCols))
+		for j, v := range strCols {
 			w, err := strconv.Atoi(v)
 			matrix[i][j] = w
 			if err != nil {
@@ -43,4 +56,18 @@ func parse(input string) [][]int {
 
 func serialize(output int) string {
 	return strconv.Itoa(output)
+}
+
+func min[T constraints.Ordered](a, b T) T {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func max[T constraints.Ordered](a, b T) T {
+	if a > b {
+		return a
+	}
+	return b
 }

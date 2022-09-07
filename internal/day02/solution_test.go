@@ -12,6 +12,11 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
+		{i: [][]int{}, o: 0},
+		{i: [][]int{{1}}, o: 0},
+		{i: [][]int{{1}, {2}}, o: 0},
+		{i: [][]int{{1, 2}}, o: 1},
+		{i: [][]int{{1, 2}, {2, 5}}, o: 4},
 		{i: [][]int{
 			{5, 1, 9, 5},
 			{7, 5, 3},
