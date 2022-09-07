@@ -1,6 +1,6 @@
 # Advent of Code 2017
 
-[![GitHub Actions](https://github.com/rxedu/adventofcode-2017/workflows/main/badge.svg)](https://github.com/rxedu/adventofcode-2017/actions)
+[![GitHub Actions](https://github.com/rxedu/adventofcode-2017-go/workflows/main/badge.svg)](https://github.com/rxedu/adventofcode-2017-go/actions)
 
 ## Description
 
@@ -11,7 +11,7 @@
 Simply import this module into your project
 
 ```go
-import "github.com/rxedu/adventofcode-2017"
+import "github.com/rxedu/adventofcode-2017-go"
 ```
 
 Then run
@@ -25,7 +25,7 @@ $ go mod tidy
 ### Quickstart
 
 ```
-$ git clone https://github.com/rxedu/adventofcode-2017.git
+$ git clone https://github.com/rxedu/adventofcode-2017-go.git
 $ cd adventofcode-2017
 $ make
 $ make test
@@ -37,10 +37,10 @@ The [source code] is hosted on GitHub.
 Clone the project with
 
 ```
-$ git clone git@github.com:rxedu/adventofcode-2017.git
+$ git clone git@github.com:rxedu/adventofcode-2017-go.git
 ```
 
-[source code]: https://github.com/rxedu/adventofcode-2017
+[source code]: https://github.com/rxedu/adventofcode-2017-go
 
 ### Requirements
 
@@ -85,7 +85,7 @@ Please submit and comment on bug reports and feature requests.
 
 To submit a patch:
 
-1. Fork it (https://github.com/rxedu/adventofcode-2017/fork).
+1. Fork it (https://github.com/rxedu/adventofcode-2017-go/fork).
 2. Create your feature branch (`git checkout -b my-new-feature`).
 3. Make changes.
 4. Commit your changes (`git commit -am 'Add some feature'`).

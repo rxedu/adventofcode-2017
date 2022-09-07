@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/rxedu/adventofcode-2017"
+	"github.com/rxedu/adventofcode-2017-go"
 )
 
 const INPUT_PATH = "input"

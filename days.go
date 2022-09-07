@@ -1,7 +1,7 @@
 package adventofcode
 
 import (
-	"github.com/rxedu/adventofcode-2017/internal/day01"
+	"github.com/rxedu/adventofcode-2017-go/internal/day01"
 )
 
 func createSolvers() []Solver {
