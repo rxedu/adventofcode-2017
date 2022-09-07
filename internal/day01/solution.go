@@ -21,24 +21,38 @@ func solvePartOne(input []int) int {
 	var sum int
 
 	for i, cur := range input {
-		var next int
-		if i+1 == len(input) {
-			next = input[0]
-		} else {
-			next = input[i+1]
-		}
+		nextIdx := (i + 1) % len(input)
+		next := input[nextIdx]
 
 		if cur == next {
 			sum += cur
 		}
-
 	}
 
 	return sum
 }
 
 func solvePartTwo(input []int) int {
-	return 0
+	if len(input) == 0 {
+		return 0
+	}
+
+	if len(input)%2 != 0 {
+		return 0
+	}
+
+	var sum int
+
+	for i, cur := range input {
+		nextIdx := (i + len(input)/2) % len(input)
+		next := input[nextIdx]
+
+		if cur == next {
+			sum += cur
+		}
+	}
+
+	return sum
 }
 
 func parse(input string) []int {

@@ -34,3 +34,30 @@ func TestPartOneExamples(t *testing.T) {
 
 	wg.Wait()
 }
+
+func TestPartTwoExamples(t *testing.T) {
+	examples := []example{
+		{i: []int{}, o: 0},
+		{i: []int{1}, o: 0},
+		{i: []int{1, 2, 1, 2}, o: 6},
+		{i: []int{1, 2, 2, 1}, o: 0},
+		{i: []int{1, 2, 3, 4, 2, 5}, o: 4},
+		{i: []int{1, 2, 3, 1, 2, 3}, o: 12},
+		{i: []int{1, 2, 1, 3, 1, 4, 1, 5}, o: 4},
+	}
+
+	var wg sync.WaitGroup
+	for _, e := range examples {
+		wg.Add(1)
+		go func(e example) {
+
+			defer wg.Done()
+			got := solvePartTwo(e.i)
+			if got != e.o {
+				t.Errorf("\n example (%d => %d)\nsolution (%d => %d)", e.i, got, e.i, e.o)
+			}
+		}(e)
+	}
+
+	wg.Wait()
+}
