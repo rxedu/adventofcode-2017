@@ -6,16 +6,17 @@ import (
 )
 
 type example struct {
-	i int
+	i []int
 	o int
 }
 
 func TestExamples(t *testing.T) {
 	examples := []example{
-		{i: 1122, o: 3},
-		{i: 1111, o: 4},
-		{i: 1234, o: 0},
-		{i: 91212129, o: 9},
+		{i: []int{}, o: 0},
+		{i: []int{1, 1, 2, 2}, o: 3},
+		{i: []int{1, 1, 1, 1}, o: 4},
+		{i: []int{1, 2, 3, 4}, o: 0},
+		{i: []int{9, 1, 2, 1, 2, 1, 2, 9}, o: 9},
 	}
 
 	var wg sync.WaitGroup
