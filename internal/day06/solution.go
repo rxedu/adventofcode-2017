@@ -1,6 +1,7 @@
 package day06
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -14,11 +15,44 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []int) int {
+	seen := make(map[string]int)
+
+	for count := 0; count < 10000000000; count++ {
+		cfg := fmt.Sprint(input)
+		if seen[cfg] > 0 {
+			return count
+		}
+		seen[cfg]++
+		rebalance(input)
+	}
 	return 0
 }
 
 func solvePartTwo(input []int) int {
 	return 0
+}
+
+func rebalance(mem []int) {
+	cur := getStart(mem)
+	blocks := mem[cur]
+	mem[cur] = 0
+	for i := 0; i < blocks; i++ {
+		cur = (cur + 1) % len(mem)
+		mem[cur]++
+	}
+
+}
+
+func getStart(mem []int) int {
+	largestValue := 0
+	startAt := 0
+	for i, v := range mem {
+		if v > largestValue {
+			largestValue = v
+			startAt = i
+		}
+	}
+	return startAt
 }
 
 func parse(input string) []int {
