@@ -18,7 +18,7 @@ func solvePartOne(input []int) int {
 		return 0
 	}
 
-	var sum int
+	sum := 0
 
 	for i, cur := range input {
 		nextIdx := (i + 1) % len(input)
@@ -41,7 +41,7 @@ func solvePartTwo(input []int) int {
 		return 0
 	}
 
-	var sum int
+	sum := 0
 
 	for i, cur := range input {
 		nextIdx := (i + len(input)/2) % len(input)
