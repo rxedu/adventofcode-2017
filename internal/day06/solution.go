@@ -27,7 +27,7 @@ func solvePartTwo(input []int) int {
 func debuggerCycles(input []int) (int, int) {
 	seen := make(map[string]int)
 
-	for count := 0; count < 10000000000; count++ {
+	for count := 0; count < 100000000; count++ {
 		cfg := fmt.Sprint(input)
 		if seen[cfg] > 0 {
 			return count, count - seen[cfg]
