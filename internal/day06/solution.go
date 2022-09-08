@@ -15,21 +15,27 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []int) int {
+	cycles, _ := debuggerCycles(input)
+	return cycles
+}
+
+func solvePartTwo(input []int) int {
+	_, loopSize := debuggerCycles(input)
+	return loopSize
+}
+
+func debuggerCycles(input []int) (int, int) {
 	seen := make(map[string]int)
 
 	for count := 0; count < 10000000000; count++ {
 		cfg := fmt.Sprint(input)
 		if seen[cfg] > 0 {
-			return count
+			return count, count - seen[cfg]
 		}
-		seen[cfg]++
+		seen[cfg] = count
 		rebalance(input)
 	}
-	return 0
-}
-
-func solvePartTwo(input []int) int {
-	return 0
+	return 0, 0
 }
 
 func rebalance(mem []int) {
