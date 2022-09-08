@@ -1,7 +1,6 @@
 package day07
 
 import (
-	"math"
 	"strconv"
 	"strings"
 )
@@ -25,15 +24,24 @@ func solvePartOne(input []Node) string {
 		return ""
 	}
 
-	root := 0
-	weight := math.MaxInt
-	for i, v := range input {
-		if v.weight < weight {
-			weight = v.weight
-			root = i
+	var links []string
+	for _, v := range input {
+		links = append(links, v.links...)
+	}
+
+	for _, node := range input {
+		uniq := true
+		for _, link := range links {
+			if link == node.name {
+				uniq = false
+				break
+			}
+		}
+		if uniq {
+			return node.name
 		}
 	}
-	return input[root].name
+	return Node{}.name
 }
 
 func solvePartTwo(input []Node) string {
@@ -51,10 +59,17 @@ func parse(input string) []Node {
 		if err != nil {
 			panic(err)
 		}
+		linkParts := strings.Split(strRow, " -> ")
+
+		var links []string
+		if len(linkParts) > 1 {
+			links = strings.Split(linkParts[1], ", ")
+		}
+
 		matrix[i] = Node{
 			name:   parts[0],
 			weight: weight,
-			links:  strings.Split(strings.Split(strRow, " -> ")[1], ", "),
+			links:  links,
 		}
 	}
 
