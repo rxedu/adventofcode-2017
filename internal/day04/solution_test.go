@@ -13,6 +13,9 @@ type example struct {
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
 		{i: []string{""}, o: 0},
+		{i: []string{"aa bb cc dd ee"}, o: 1},
+		{i: []string{"aa bb cc dd aa"}, o: 0},
+		{i: []string{"aa bb cc dd aaa"}, o: 1},
 	}
 
 	var wg sync.WaitGroup
