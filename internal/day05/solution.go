@@ -30,10 +30,23 @@ func solvePartOne(input []int) int {
 }
 
 func solvePartTwo(input []int) int {
+	count := 0
+
 	if len(input) == 0 {
-		return 0
+		return count
 	}
-	return 0
+
+	for i := 0; i < len(input); count++ {
+		j := input[i]
+		if j < 3 {
+			input[i]++
+		} else {
+			input[i]--
+		}
+		i = i + j
+	}
+
+	return count
 }
 
 func parse(input string) []int {
