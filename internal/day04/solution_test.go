@@ -36,7 +36,12 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: []string{""}, o: 0},
+		{i: []string{""}, o: 1},
+		{i: []string{"abcde fghij"}, o: 1},
+		{i: []string{"abcde xyz ecdab"}, o: 0},
+		{i: []string{"a ab abc abd abf abj"}, o: 1},
+		{i: []string{"iiii oiii ooii oooi oooo"}, o: 1},
+		{i: []string{"oiii ioii iioi iiio"}, o: 0},
 	}
 
 	var wg sync.WaitGroup
