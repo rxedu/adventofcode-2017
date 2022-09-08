@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/exp/constraints"
+	"github.com/rxedu/adventofcode-2017-go/internal/math"
 )
 
 func SolvePartOne(input string) string {
@@ -21,8 +21,8 @@ func solvePartOne(input [][]int) int {
 		a := row[0]
 		b := row[0]
 		for _, v := range row {
-			a = max(a, v)
-			b = min(b, v)
+			a = math.Max(a, v)
+			b = math.Min(b, v)
 		}
 		checksum += a - b
 	}
@@ -83,18 +83,4 @@ func parse(input string) [][]int {
 
 func serialize(output int) string {
 	return strconv.Itoa(output)
-}
-
-func min[T constraints.Ordered](a, b T) T {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func max[T constraints.Ordered](a, b T) T {
-	if a > b {
-		return a
-	}
-	return b
 }
