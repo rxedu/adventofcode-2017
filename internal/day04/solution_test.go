@@ -1,4 +1,4 @@
-package day01
+package day04
 
 import (
 	"sync"
@@ -6,17 +6,16 @@ import (
 )
 
 type example struct {
-	i []int
+	i []string
 	o int
 }
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: []int{}, o: 0},
-		{i: []int{1, 1, 2, 2}, o: 3},
-		{i: []int{1, 1, 1, 1}, o: 4},
-		{i: []int{1, 2, 3, 4}, o: 0},
-		{i: []int{9, 1, 2, 1, 2, 1, 2, 9}, o: 9},
+		{i: []string{""}, o: 1},
+		{i: []string{"aa bb cc dd ee"}, o: 1},
+		{i: []string{"aa bb cc dd aa"}, o: 0},
+		{i: []string{"aa bb cc dd aaa"}, o: 1},
 	}
 
 	var wg sync.WaitGroup
@@ -37,13 +36,12 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: []int{}, o: 0},
-		{i: []int{1}, o: 0},
-		{i: []int{1, 2, 1, 2}, o: 6},
-		{i: []int{1, 2, 2, 1}, o: 0},
-		{i: []int{1, 2, 3, 4, 2, 5}, o: 4},
-		{i: []int{1, 2, 3, 1, 2, 3}, o: 12},
-		{i: []int{1, 2, 1, 3, 1, 4, 1, 5}, o: 4},
+		{i: []string{""}, o: 1},
+		{i: []string{"abcde fghij"}, o: 1},
+		{i: []string{"abcde xyz ecdab"}, o: 0},
+		{i: []string{"a ab abc abd abf abj"}, o: 1},
+		{i: []string{"iiii oiii ooii oooi oooo"}, o: 1},
+		{i: []string{"oiii ioii iioi iiio"}, o: 0},
 	}
 
 	var wg sync.WaitGroup
