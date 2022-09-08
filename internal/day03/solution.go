@@ -18,7 +18,7 @@ func solvePartOne(input int) int {
 }
 
 func solvePartTwo(input int) int {
-	return 0
+	return spiralSum(input).z
 }
 
 type address struct {
@@ -77,6 +77,90 @@ func spiral(to int) address {
 	}
 
 	return adr
+}
+
+func spiralSum(to int) address {
+	adr := address{x: 0, y: 0, z: 1, n: 0}
+	currentAdrs := []address{adr}
+	var prevAdrs []address
+
+	if adr.z > to {
+		return adr
+	}
+
+	for adr.z <= to {
+		adr.x++
+		adr.n++
+		adr.z = nextZ(adr, currentAdrs, prevAdrs)
+		prevAdrs = currentAdrs
+		currentAdrs = []address{adr}
+		if adr.z > to {
+			return adr
+		}
+
+		for adr.y < adr.n {
+			adr.y++
+			adr.z = nextZ(adr, currentAdrs, prevAdrs)
+			currentAdrs = append(currentAdrs, adr)
+			if adr.z > to {
+				return adr
+			}
+		}
+
+		for adr.x > -adr.n {
+			adr.x--
+			adr.z = nextZ(adr, currentAdrs, prevAdrs)
+			currentAdrs = append(currentAdrs, adr)
+			if adr.z > to {
+				return adr
+			}
+		}
+
+		for adr.y > -adr.n {
+			adr.y--
+			adr.z = nextZ(adr, currentAdrs, prevAdrs)
+			currentAdrs = append(currentAdrs, adr)
+			if adr.z > to {
+				return adr
+			}
+		}
+
+		for adr.x < adr.n {
+			adr.x++
+			adr.z = nextZ(adr, currentAdrs, prevAdrs)
+			currentAdrs = append(currentAdrs, adr)
+			if adr.z > to {
+				return adr
+			}
+		}
+	}
+
+	adr.x++
+	adr.n++
+	adr.z = nextZ(adr, currentAdrs, prevAdrs)
+	return adr
+}
+
+func nextZ(cur address, a []address, b []address) int {
+	var sum int
+
+	for _, adr := range a {
+		diffX := adr.x - cur.x
+		diffY := adr.y - cur.y
+		if abs(diffX)+abs(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
+			sum += adr.z
+		}
+	}
+
+	for _, adr := range b {
+		diffX := adr.x - cur.x
+		diffY := adr.y - cur.y
+		if abs(diffX)+abs(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
+			sum += adr.z
+		}
+	}
+
+	return sum
 }
 
 func abs(a int) int {
