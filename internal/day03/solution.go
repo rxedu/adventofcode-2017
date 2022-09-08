@@ -21,15 +21,15 @@ func solvePartTwo(input int) int {
 	return spiralSum(input).z
 }
 
-type address struct {
+type Address struct {
 	n int
 	z int
 	x int
 	y int
 }
 
-func spiral(to int) address {
-	adr := address{x: 0, y: 0, z: 1, n: 0}
+func spiral(to int) Address {
+	adr := Address{x: 0, y: 0, z: 1, n: 0}
 
 	if adr.z == to {
 		return adr
@@ -79,10 +79,10 @@ func spiral(to int) address {
 	return adr
 }
 
-func spiralSum(to int) address {
-	adr := address{x: 0, y: 0, z: 1, n: 0}
-	currentAdrs := []address{adr}
-	var prevAdrs []address
+func spiralSum(to int) Address {
+	adr := Address{x: 0, y: 0, z: 1, n: 0}
+	currentAdrs := []Address{adr}
+	var prevAdrs []Address
 
 	if adr.z > to {
 		return adr
@@ -93,7 +93,7 @@ func spiralSum(to int) address {
 		adr.n++
 		adr.z = nextZ(adr, currentAdrs, prevAdrs)
 		prevAdrs = currentAdrs
-		currentAdrs = []address{adr}
+		currentAdrs = []Address{adr}
 		if adr.z > to {
 			return adr
 		}
@@ -141,7 +141,7 @@ func spiralSum(to int) address {
 	return adr
 }
 
-func nextZ(cur address, a []address, b []address) int {
+func nextZ(cur Address, a []Address, b []Address) int {
 	sum := 0
 
 	for _, adr := range a {
