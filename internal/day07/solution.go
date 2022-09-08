@@ -6,7 +6,7 @@ import (
 )
 
 func SolvePartOne(input string) string {
-	return serialize(solvePartOne(parse(input)))
+	return solvePartOne(parse(input))
 }
 
 func SolvePartTwo(input string) string {
@@ -19,9 +19,37 @@ type Node struct {
 	links  []string
 }
 
+type Tree struct {
+	root Node
+	subs []Tree
+}
+
+func (t Tree) subweight() int {
+	w := 0
+	for _, n := range t.subs {
+		w += n.root.weight
+		w += n.subweight()
+	}
+	return w
+}
+
 func solvePartOne(input []Node) string {
+	root := findRoot(input)
+	return root.name
+}
+
+func solvePartTwo(input []Node) int {
+	// TODO
+	// make the tree
+	// for each subtree, compute which one has weight not equal to the rest
+	// if all are equal (or no more subtrees), then the current subtree is the problem
+	// the diff between this node's weight and the other weights on it's level is the solution
+	return 0
+}
+
+func findRoot(input []Node) Node {
 	if len(input) < 1 {
-		return ""
+		return Node{}
 	}
 
 	var links []string
@@ -38,14 +66,10 @@ func solvePartOne(input []Node) string {
 			}
 		}
 		if uniq {
-			return node.name
+			return node
 		}
 	}
-	return Node{}.name
-}
-
-func solvePartTwo(input []Node) string {
-	return ""
+	return Node{}
 }
 
 func parse(input string) []Node {
@@ -76,6 +100,6 @@ func parse(input string) []Node {
 	return matrix
 }
 
-func serialize(output string) string {
-	return output
+func serialize(output int) string {
+	return strconv.Itoa(output)
 }

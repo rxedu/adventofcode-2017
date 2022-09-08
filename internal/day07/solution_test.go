@@ -5,13 +5,18 @@ import (
 	"testing"
 )
 
-type example struct {
+type exampleOne struct {
 	i []Node
 	o string
 }
 
+type exampleTwo struct {
+	i []Node
+	o int
+}
+
 func TestPartOneExamples(t *testing.T) {
-	examples := []example{
+	examples := []exampleOne{
 		{i: []Node{}, o: ""},
 		{i: []Node{{name: "a", weight: 0}}, o: "a"},
 		{i: []Node{
@@ -34,7 +39,7 @@ func TestPartOneExamples(t *testing.T) {
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e example) {
+		go func(e exampleOne) {
 
 			defer wg.Done()
 			got := solvePartOne(e.i)
@@ -48,14 +53,28 @@ func TestPartOneExamples(t *testing.T) {
 }
 
 func TestPartTwoExamples(t *testing.T) {
-	examples := []example{
-		{i: []Node{{name: "a", weight: 0}}, o: ""},
+	examples := []exampleTwo{
+		{i: []Node{
+			{name: "pbga", weight: 66},
+			{name: "xhth", weight: 57},
+			{name: "ebii", weight: 61},
+			{name: "havc", weight: 66},
+			{name: "ktlj", weight: 57},
+			{name: "fwft", weight: 72, links: []string{"ktlj", "cntj", "xhth"}},
+			{name: "qoyq", weight: 66},
+			{name: "padx", weight: 45, links: []string{"pbga", "havc", "qoyq"}},
+			{name: "tknk", weight: 41, links: []string{"ugml", "padx", "fwft"}},
+			{name: "jptl", weight: 61},
+			{name: "ugml", weight: 68, links: []string{"gyxo", "ebii", "jptl"}},
+			{name: "gyxo", weight: 61},
+			{name: "cntj", weight: 57},
+		}, o: 60},
 	}
 
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e example) {
+		go func(e exampleTwo) {
 
 			defer wg.Done()
 			got := solvePartTwo(e.i)
