@@ -14,11 +14,30 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []string) int {
-	return 0
+	var count int
+	for _, v := range input {
+		if isValidPassphrase(v) {
+			count++
+		}
+
+	}
+	return count
 }
 
 func solvePartTwo(input []string) int {
 	return 0
+}
+
+func isValidPassphrase(pass string) bool {
+	words := strings.Split(pass, " ")
+	m := make(map[string]int, len(words))
+	for _, v := range words {
+		m[v]++
+		if m[v] > 1 {
+			return false
+		}
+	}
+	return true
 }
 
 func parse(input string) []string {
