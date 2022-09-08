@@ -37,7 +37,6 @@ func TestPartOneExamples(t *testing.T) {
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
 		{i: []int{}, o: 0},
-		{i: []int{0}, o: 1},
 	}
 
 	var wg sync.WaitGroup
