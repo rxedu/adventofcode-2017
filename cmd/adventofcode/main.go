@@ -15,9 +15,14 @@ const INPUT_PATH = "input"
 const OUTPUT_PATH = "solutions"
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Printf("Error: must pass day to solve as first argument\n")
-		os.Exit(2)
+	day := 1
+	if len(os.Args) > 1 {
+		v, err := strconv.Atoi(os.Args[1])
+		if err != nil || day < 1 {
+			fmt.Printf("Day must be positive integer, got %v\n", day)
+			os.Exit(2)
+		}
+		day = v
 	}
 
 	part := 1
@@ -30,14 +35,19 @@ func main() {
 		part = v
 	}
 
-	day, err := strconv.Atoi(os.Args[1])
-	if err != nil || day < 1 {
-		fmt.Printf("Day must be positive integer, got %v\n", day)
-		os.Exit(2)
+	if len(os.Args) > 1 {
+		solveOne(day, part)
+		return
 	}
 
-	input, err := loadInput(day)
+	for i := 1; i <= adventofcode.NumSolvedDays(); i++ {
+		solveOne(i, 1)
+		solveOne(i, 2)
+	}
+}
 
+func solveOne(day int, part int) {
+	input, err := loadInput(day)
 	if err != nil {
 		fmt.Printf("Error loading input for day %v\n", day)
 		log.Fatal(err)
@@ -49,7 +59,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Solution for day %02d, part %d: %s", day, part, solution)
+	fmt.Printf("Solution for day %02d, part %d: %s\n", day, part, solution)
 	err = saveOutput(day, part, solution)
 
 	if err != nil {

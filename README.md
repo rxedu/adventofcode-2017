@@ -8,6 +8,12 @@
 
 ### Usage
 
+Solve all days with
+
+```
+$ adventofcode
+```
+
 Get a solution by passing the day and part as CLI arguments.
 
 ```

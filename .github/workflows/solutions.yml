@@ -29,10 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: build
-    strategy:
-      matrix:
-        day: [1, 2, 3]
-        part: [1, 2]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,4 +39,10 @@ jobs:
       - name: Fix permission
         run: chmod u+x adventofcode
       - name: Solve
-        run: ./adventofcode ${{ matrix.day }} ${{ matrix.part }}
+        run: ./adventofcode
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: solutions
+          path: solutions
+          retention-days: 2

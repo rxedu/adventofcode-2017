@@ -13,7 +13,7 @@ func SolveDay(day int, part int, input string) (string, bool) {
 }
 
 func GetSolver(day int, part int) (Solver, bool) {
-	solvers := createSolvers(part)
+	solvers := getSolvers(part)
 
 	defaultSolver := func(input string) string { return "" }
 
@@ -26,4 +26,28 @@ func GetSolver(day int, part int) (Solver, bool) {
 	}
 
 	return solvers[day-1], true
+}
+
+func NumSolvedDays() int {
+	if len(solversPartOne) == 0 || len(solversPartTwo) == 0 {
+		initSolvers()
+	}
+
+	return len(solversPartTwo)
+}
+
+func getSolvers(part int) []Solver {
+	if len(solversPartOne) == 0 || len(solversPartTwo) == 0 {
+		initSolvers()
+	}
+
+	if part == 1 {
+		return solversPartOne
+	}
+
+	if part == 2 {
+		return solversPartTwo
+	}
+
+	return []Solver{}
 }
