@@ -142,7 +142,7 @@ func spiralSum(to int) address {
 }
 
 func nextZ(cur address, a []address, b []address) int {
-	var sum int
+	sum := 0
 
 	for _, adr := range a {
 		diffX := adr.x - cur.x

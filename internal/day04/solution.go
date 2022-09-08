@@ -15,7 +15,7 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []string) int {
-	var count int
+	count := 0
 	for _, v := range input {
 		if isValidPartOnePassphrase(v) {
 			count++
@@ -25,7 +25,7 @@ func solvePartOne(input []string) int {
 }
 
 func solvePartTwo(input []string) int {
-	var count int
+	count := 0
 	for _, v := range input {
 		if isValidPartTwoPassphrase(v) {
 			count++

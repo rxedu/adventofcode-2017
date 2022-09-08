@@ -16,7 +16,7 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input [][]int) int {
-	var checksum int
+	checksum := 0
 	for _, row := range input {
 		a := row[0]
 		b := row[0]
@@ -31,7 +31,7 @@ func solvePartOne(input [][]int) int {
 }
 
 func solvePartTwo(input [][]int) int {
-	var checksum int
+	checksum := 0
 	for _, row := range input {
 		checksum += findRatio(row)
 	}
