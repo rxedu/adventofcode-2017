@@ -16,10 +16,9 @@ func SolvePartTwo(input string) string {
 func solvePartOne(input []string) int {
 	var count int
 	for _, v := range input {
-		if isValidPassphrase(v) {
+		if isValidPartOnePassphrase(v) {
 			count++
 		}
-
 	}
 	return count
 }
@@ -28,7 +27,7 @@ func solvePartTwo(input []string) int {
 	return 0
 }
 
-func isValidPassphrase(pass string) bool {
+func isValidPartOnePassphrase(pass string) bool {
 	words := strings.Split(pass, " ")
 	m := make(map[string]int, len(words))
 	for _, v := range words {
