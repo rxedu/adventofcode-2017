@@ -92,8 +92,9 @@ func findNodeByName(name string, nodes []Node) Node {
 }
 
 func findCorrectWeight(tree Tree, imbalance int) int {
+	weight := tree.root.weight + imbalance
 	if isBalanced(tree.subs) {
-		return tree.root.weight + imbalance
+		return weight
 	}
 
 	// NOTE: For the case of 2 children, we assume the input is constrained
@@ -116,7 +117,7 @@ func findCorrectWeight(tree Tree, imbalance int) int {
 		}
 	}
 
-	return 0
+	return weight
 }
 
 func isBalanced(trees []Tree) bool {
