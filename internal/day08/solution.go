@@ -67,7 +67,15 @@ func solvePartOne(input []Instruction) int {
 }
 
 func solvePartTwo(input []Instruction) int {
-	return 0
+	regs := make(map[string]int)
+
+	max := 0
+	for _, ins := range input {
+		ins.exec(regs)
+		max = math.Max(max, regs[ins.reg])
+	}
+
+	return max
 }
 
 func parse(input string) []Instruction {

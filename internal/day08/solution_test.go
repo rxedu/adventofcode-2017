@@ -46,6 +46,13 @@ func TestPartOneExamples(t *testing.T) {
 func TestPartTwoExamples(t *testing.T) {
 	examples := []exampleTwo{
 		{i: []Instruction{}, o: 0},
+		{i: []Instruction{{reg: "a", change: 10, condition: Condition{reg: "a", op: "==", val: 0}}}, o: 10},
+		{i: []Instruction{
+			{reg: "b", change: 5, condition: Condition{reg: "a", op: ">", val: 1}},
+			{reg: "a", change: 1, condition: Condition{reg: "b", op: "<", val: 5}},
+			{reg: "c", change: 10, condition: Condition{reg: "a", op: ">=", val: 1}},
+			{reg: "c", change: -20, condition: Condition{reg: "c", op: "==", val: 10}},
+		}, o: 10},
 	}
 
 	var wg sync.WaitGroup
