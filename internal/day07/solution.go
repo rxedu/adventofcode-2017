@@ -137,7 +137,7 @@ func isBalanced(trees []Tree) bool {
 func parse(input string) []Node {
 	strRows := strings.Split(input, "\n")
 
-	matrix := make([]Node, len(strRows))
+	arr := make([]Node, len(strRows))
 	for i, strRow := range strRows {
 		parts := strings.Split(strRow, " ")
 		weight, err := strconv.Atoi(
@@ -152,14 +152,14 @@ func parse(input string) []Node {
 			links = strings.Split(linkParts[1], ", ")
 		}
 
-		matrix[i] = Node{
+		arr[i] = Node{
 			name:   parts[0],
 			weight: weight,
 			links:  links,
 		}
 	}
 
-	return matrix
+	return arr
 }
 
 func serialize(output int) string {
