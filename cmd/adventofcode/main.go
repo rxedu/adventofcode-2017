@@ -35,7 +35,13 @@ func main() {
 		part = v
 	}
 
-	if len(os.Args) > 1 {
+	if len(os.Args) == 2 {
+		solveOne(day, 1)
+		solveOne(day, 2)
+		return
+	}
+
+	if len(os.Args) > 2 {
 		solveOne(day, part)
 		return
 	}
