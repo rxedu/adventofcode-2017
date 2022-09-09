@@ -5,18 +5,13 @@ import (
 	"testing"
 )
 
-type exampleOne struct {
-	i []Instruction
-	o int
-}
-
-type exampleTwo struct {
+type example struct {
 	i []Instruction
 	o int
 }
 
 func TestPartOneExamples(t *testing.T) {
-	examples := []exampleOne{
+	examples := []example{
 		{i: []Instruction{}, o: 0},
 		{i: []Instruction{{reg: "a", change: 10, condition: Condition{reg: "a", op: "==", val: 0}}}, o: 10},
 		{i: []Instruction{
@@ -30,7 +25,7 @@ func TestPartOneExamples(t *testing.T) {
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e exampleOne) {
+		go func(e example) {
 
 			defer wg.Done()
 			got := solvePartOne(e.i)
@@ -44,7 +39,7 @@ func TestPartOneExamples(t *testing.T) {
 }
 
 func TestPartTwoExamples(t *testing.T) {
-	examples := []exampleTwo{
+	examples := []example{
 		{i: []Instruction{}, o: 0},
 		{i: []Instruction{{reg: "a", change: 10, condition: Condition{reg: "a", op: "==", val: 0}}}, o: 10},
 		{i: []Instruction{
@@ -58,7 +53,7 @@ func TestPartTwoExamples(t *testing.T) {
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e exampleTwo) {
+		go func(e example) {
 
 			defer wg.Done()
 			got := solvePartTwo(e.i)
