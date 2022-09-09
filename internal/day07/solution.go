@@ -33,18 +33,19 @@ func (t Tree) subweight() int {
 	return w
 }
 
+func (t Tree) weight() int {
+	return t.root.weight + t.subweight()
+}
+
 func solvePartOne(input []Node) string {
 	root := findRoot(input)
 	return root.name
 }
 
 func solvePartTwo(input []Node) int {
-	// TODO
-	// make the tree
-	// for each subtree, compute which one has weight not equal to the rest
-	// if all are equal (or no more subtrees), then the current subtree is the problem
-	// the diff between this node's weight and the other weights on it's level is the solution
-	return 0
+	root := findRoot(input)
+	tree := createTree(root, input)
+	return findCorrectWeight(tree, 0)
 }
 
 func findRoot(input []Node) Node {
@@ -70,6 +71,66 @@ func findRoot(input []Node) Node {
 		}
 	}
 	return Node{}
+}
+
+func createTree(root Node, nodes []Node) Tree {
+	tree := Tree{root: root}
+	for _, name := range root.links {
+		subroot := findNodeByName(name, nodes)
+		tree.subs = append(tree.subs, createTree(subroot, nodes))
+	}
+	return tree
+}
+
+func findNodeByName(name string, nodes []Node) Node {
+	for _, n := range nodes {
+		if n.name == name {
+			return n
+		}
+	}
+	return Node{}
+}
+
+func findCorrectWeight(tree Tree, imbalance int) int {
+	if isBalanced(tree.subs) {
+		return tree.root.weight + imbalance
+	}
+
+	// NOTE: For the case of 2 children, we assume the input is constrained
+	// such that solution will be the same for either branch.
+	if len(tree.subs) < 3 {
+		return findCorrectWeight(tree.subs[0], imbalance)
+	}
+
+	var w int
+	if tree.subs[0].weight() == tree.subs[1].weight() || tree.subs[0].weight() == tree.subs[2].weight() {
+		w = tree.subs[0].weight()
+	} else {
+		w = tree.subs[1].weight()
+	}
+
+	for i := 0; i < len(tree.subs); i++ {
+		imbalance = w - tree.subs[i].weight()
+		if imbalance != 0 {
+			return findCorrectWeight(tree.subs[i], imbalance)
+		}
+	}
+
+	return 0
+}
+
+func isBalanced(trees []Tree) bool {
+	if len(trees) < 2 {
+		return true
+	}
+
+	for i := 1; i < len(trees); i++ {
+		if trees[i].subweight() != trees[i-1].subweight() {
+			return false
+		}
+	}
+
+	return true
 }
 
 func parse(input string) []Node {
