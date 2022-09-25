@@ -13,9 +13,13 @@ type example struct {
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
 		{i: "{}", o: 1},
-		{i: "{{}}", o: 1},
 		{i: "{{{}}}", o: 1},
-		{i: "{{},{}}", o: 1},
+		{i: "{{},{}}", o: 5},
+		{i: "{{{},{},{{}}}}", o: 16},
+		{i: "{<a>,<a>,<a>,<a>}", o: 1},
+		{i: "{{<ab>},{<ab>},{<ab>},{<ab>}}", o: 9},
+		{i: "{<!!>},{<!!>},{<!!>},{<!!>}}", o: 9},
+		{i: "{{<a!>},{<a!>},{<a!>},{<ab>}}", o: 3},
 	}
 
 	var wg sync.WaitGroup
