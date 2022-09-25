@@ -1,7 +1,9 @@
 package day09
 
 import (
+	"regexp"
 	"strconv"
+	"strings"
 )
 
 func SolvePartOne(input string) string {
@@ -53,9 +55,14 @@ func removeGarbage(input string) string {
 			continue
 		}
 
-		if !inGarbage && string(v) != "," {
+		if !inGarbage {
 			result += string(v)
 		}
 	}
-	return result
+
+	multicomma := regexp.MustCompile("(,)+")
+	singleCommas := multicomma.ReplaceAllString(result, ",")
+	return strings.ReplaceAll(
+		strings.ReplaceAll(singleCommas, ",}", "}"),
+		"{,", "{")
 }

@@ -63,6 +63,8 @@ type garbageExample struct {
 func TestRemoveGarbage(t *testing.T) {
 	examples := []garbageExample{
 		{i: "{}", o: "{}"},
+		{i: "{{},{},{}}", o: "{{},{},{}}"},
+		{i: "{{},<>,{}}", o: "{{},{}}"},
 		{i: "{<>}", o: "{}"},
 		{i: "{<>,<>}", o: "{}"},
 		{i: "{{},<>}", o: "{{}}"},
