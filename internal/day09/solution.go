@@ -15,7 +15,18 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input string) int {
-	return 0
+	score := 0
+	level := 0
+	for _, v := range removeGarbage(input) {
+		switch string(v) {
+		case "{":
+			level++
+		case "}":
+			score += level
+			level--
+		}
+	}
+	return score
 }
 
 func solvePartTwo(input string) int {
