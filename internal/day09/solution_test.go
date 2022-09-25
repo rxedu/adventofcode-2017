@@ -6,14 +6,16 @@ import (
 )
 
 type example struct {
-	i []string
+	i string
 	o int
 }
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: []string{""}, o: 0},
-		{i: []string{"{}"}, o: 1},
+		{i: "{}", o: 1},
+		{i: "{{}}", o: 1},
+		{i: "{{{}}}", o: 1},
+		{i: "{{},{}}", o: 1},
 	}
 
 	var wg sync.WaitGroup
@@ -34,7 +36,7 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: []string{""}, o: 0},
+		{i: "", o: 0},
 	}
 
 	var wg sync.WaitGroup

@@ -2,7 +2,6 @@ package day09
 
 import (
 	"strconv"
-	"strings"
 )
 
 func SolvePartOne(input string) string {
@@ -13,16 +12,16 @@ func SolvePartTwo(input string) string {
 	return serialize(solvePartTwo(parse(input)))
 }
 
-func solvePartOne(input []string) int {
+func solvePartOne(input string) int {
 	return 0
 }
 
-func solvePartTwo(input []string) int {
+func solvePartTwo(input string) int {
 	return 0
 }
 
-func parse(input string) []string {
-	return strings.Split(input, "\n")
+func parse(input string) string {
+	return input
 }
 
 func serialize(output int) string {
