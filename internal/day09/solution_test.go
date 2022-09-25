@@ -54,3 +54,35 @@ func TestPartTwoExamples(t *testing.T) {
 
 	wg.Wait()
 }
+
+type garbageExample struct {
+	i string
+	o string
+}
+
+func TestRemoveGarbage(t *testing.T) {
+	examples := []garbageExample{
+		{i: "{}", o: "{}"},
+		{i: "{<>}", o: "{}"},
+		{i: "{<>,<>}", o: "{}"},
+		{i: "{{},<>}", o: "{{}}"},
+		{i: "{<>,{}}", o: "{{}}"},
+		{i: "{<!>>}", o: "{}"},
+		{i: "{<!!>}", o: "{}"},
+	}
+
+	var wg sync.WaitGroup
+	for _, e := range examples {
+		wg.Add(1)
+		go func(e garbageExample) {
+
+			defer wg.Done()
+			got := removeGarbage(e.i)
+			if got != e.o {
+				t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, got)
+			}
+		}(e)
+	}
+
+	wg.Wait()
+}
