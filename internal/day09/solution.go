@@ -45,13 +45,13 @@ func removeGarbage(input string) string {
 			continue
 		}
 
-		if !inGarbage && string(v) == "<" {
-			inGarbage = true
+		if string(v) == ">" {
+			inGarbage = false
 			continue
 		}
 
-		if inGarbage && string(v) == ">" {
-			inGarbage = false
+		if string(v) == "<" {
+			inGarbage = true
 			continue
 		}
 
