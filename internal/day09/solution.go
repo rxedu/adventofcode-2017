@@ -17,7 +17,8 @@ func SolvePartTwo(input string) string {
 func solvePartOne(input string) int {
 	score := 0
 	level := 0
-	for _, v := range removeGarbage(input) {
+	groups, _ := removeGarbage(input)
+	for _, v := range groups {
 		switch string(v) {
 		case "{":
 			level++
@@ -30,7 +31,8 @@ func solvePartOne(input string) int {
 }
 
 func solvePartTwo(input string) int {
-	return 0
+	_, count := removeGarbage(input)
+	return count
 }
 
 func parse(input string) string {
@@ -41,10 +43,11 @@ func serialize(output int) string {
 	return strconv.Itoa(output)
 }
 
-func removeGarbage(input string) string {
+func removeGarbage(input string) (string, int) {
 	result := ""
 	inGarbage := false
 	isNegated := false
+	count := 0
 	for _, v := range input {
 		if isNegated {
 			isNegated = false
@@ -62,18 +65,23 @@ func removeGarbage(input string) string {
 		}
 
 		if string(v) == "<" {
+			if inGarbage {
+				count++
+			}
 			inGarbage = true
 			continue
 		}
 
 		if !inGarbage {
 			result += string(v)
+		} else {
+			count++
 		}
 	}
 
 	multicomma := regexp.MustCompile("(,)+")
-	singleCommas := multicomma.ReplaceAllString(result, ",")
-	return strings.ReplaceAll(
-		strings.ReplaceAll(singleCommas, ",}", "}"),
-		"{,", "{")
+	result = multicomma.ReplaceAllString(result, ",")
+	result = strings.ReplaceAll(result, ",}", "}")
+	result = strings.ReplaceAll(result, "{,", "{")
+	return result, count
 }

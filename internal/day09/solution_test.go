@@ -40,7 +40,13 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: "", o: 0},
+		{i: "<>", o: 0},
+		{i: "<random characters>", o: 17},
+		{i: "<<<<>", o: 3},
+		{i: "<{!>}>", o: 2},
+		{i: "<!!>", o: 0},
+		{i: "<!!!>>", o: 0},
+		{i: "<{o\"i!a,<{i<a>", o: 10},
 	}
 
 	var wg sync.WaitGroup
@@ -87,7 +93,7 @@ func TestRemoveGarbage(t *testing.T) {
 		go func(e garbageExample) {
 
 			defer wg.Done()
-			got := removeGarbage(e.i)
+			got, _ := removeGarbage(e.i)
 			if got != e.o {
 				t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, got)
 			}
