@@ -14,13 +14,19 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []int, size int) int {
+	list, _, _ := knotHash(size, input, 0, 0)
+	return list[0] * list[1]
+}
+
+func solvePartTwo(input []int) int {
+	return 1
+}
+
+func knotHash(size int, input []int, cur int, skip int) ([]int, int, int) {
 	list := make([]int, size)
 	for i := 0; i < len(list); i++ {
 		list[i] = i
 	}
-
-	cur := 0
-	skip := 0
 
 	for _, length := range input {
 		length = length % size
@@ -51,11 +57,7 @@ func solvePartOne(input []int, size int) int {
 		skip++
 	}
 
-	return list[0] * list[1]
-}
-
-func solvePartTwo(input []int) int {
-	return 1
+	return list, cur, skip
 }
 
 func reverse(list []int) []int {
