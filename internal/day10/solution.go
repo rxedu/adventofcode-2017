@@ -15,28 +15,32 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []int, size int) int {
-	list, _, _ := knotHash(input, size, 0, 0)
+	list := makeList(size)
+	list, _, _ = knotHash(input, list, 0, 0)
 	return list[0] * list[1]
 }
 
 func solvePartTwo(input []int) string {
+	lengthSuffix := []int{17, 31, 73, 47, 23}
+
 	size := 256
 	rounds := 64
 	cur := 0
 	skip := 0
 
-	var sparseHash []int
+	input = append(input, lengthSuffix...)
+
+	sparseHash := makeList(size)
 	for i := 0; i < rounds; i++ {
-		sparseHash, cur, skip = knotHash(input, size, cur, skip)
+		sparseHash, cur, skip = knotHash(input, sparseHash, cur, skip)
 	}
 
 	hash := denseHash(sparseHash)
 	return toHexString(hash)
 }
 
-func knotHash(lengths []int, size int, cur int, skip int) ([]int, int, int) {
-	list := makeList(size)
-
+func knotHash(lengths []int, list []int, cur int, skip int) ([]int, int, int) {
+	size := len(list)
 	for _, length := range lengths {
 		length = length % size
 
@@ -121,12 +125,11 @@ func parsePartOne(input string) []int {
 }
 
 func parsePartTwo(input string) []int {
-	lengthSuffix := []int{17, 31, 73, 47, 23}
 	arr := make([]int, len(input))
 	for i, str := range input {
 		arr[i] = int(str)
 	}
-	return append(arr, lengthSuffix...)
+	return arr
 }
 
 func serializePartOne(output int) string {
