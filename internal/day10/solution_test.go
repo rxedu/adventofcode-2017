@@ -60,3 +60,18 @@ func TestPartTwoExamples(t *testing.T) {
 
 	wg.Wait()
 }
+
+func TestDenseHash(t *testing.T) {
+	input := []int{65, 27, 9, 1, 4, 3, 40, 50, 91, 7, 6, 0, 2, 5, 68, 22,
+		65, 27, 9, 1, 4, 3, 40, 50, 91, 7, 6, 0, 2, 5, 68, 23,
+	}
+	got := denseHash(input)
+
+	if got[0] != 64 {
+		t.Errorf("%d; want 64", got[0])
+	}
+
+	if got[1] != 65 {
+		t.Errorf("%d; want 65", got[1])
+	}
+}

@@ -21,7 +21,6 @@ func solvePartOne(input []int, size int) int {
 
 func solvePartTwo(input []int) string {
 	size := 256
-	chunkSize := 16
 	rounds := 64
 	cur := 0
 	skip := 0
@@ -31,30 +30,12 @@ func solvePartTwo(input []int) string {
 		sparseHash, cur, skip = knotHash(input, size, cur, skip)
 	}
 
-	denseHash := make([]int, size/chunkSize)
-	for i := 0; i < chunkSize; i++ {
-		start := chunkSize * i
-		end := start + chunkSize
-		for _, v := range sparseHash[start:end] {
-			denseHash[i] = v ^ denseHash[i]
-		}
-	}
-
-	var hash string
-	for _, v := range denseHash {
-		hash += fmt.Sprintf("%02x", v)
-	}
-	fmt.Println(sparseHash)
-	fmt.Println(denseHash)
-
-	return hash
+	hash := denseHash(sparseHash)
+	return toHexString(hash)
 }
 
 func knotHash(lengths []int, size int, cur int, skip int) ([]int, int, int) {
-	list := make([]int, size)
-	for i := 0; i < len(list); i++ {
-		list[i] = i
-	}
+	list := makeList(size)
 
 	for _, length := range lengths {
 		length = length % size
@@ -86,6 +67,36 @@ func knotHash(lengths []int, size int, cur int, skip int) ([]int, int, int) {
 	}
 
 	return list, cur, skip
+}
+
+func denseHash(sparseHash []int) []int {
+	chunkSize := 16
+	numChunks := len(sparseHash) / chunkSize
+	hash := make([]int, numChunks)
+	for i := 0; i < numChunks; i++ {
+		start := chunkSize * i
+		end := start + chunkSize
+		for _, v := range sparseHash[start:end] {
+			hash[i] = v ^ hash[i]
+		}
+	}
+	return hash
+}
+
+func toHexString(denseHash []int) string {
+	var hash string
+	for _, v := range denseHash {
+		hash += fmt.Sprintf("%02x", v)
+	}
+	return hash
+}
+
+func makeList(size int) []int {
+	list := make([]int, size)
+	for i := 0; i < len(list); i++ {
+		list[i] = i
+	}
+	return list
 }
 
 func reverse(list []int) []int {
