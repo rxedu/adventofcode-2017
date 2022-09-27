@@ -7,11 +7,11 @@ import (
 )
 
 func SolvePartOne(input string) string {
-	return serialize(solvePartOne(parse(input)))
+	return serialize(solvePartOne(input))
 }
 
 func SolvePartTwo(input string) string {
-	return serialize(solvePartTwo(parse(input)))
+	return serialize(solvePartTwo(input))
 }
 
 func solvePartOne(input string) int {
@@ -33,10 +33,6 @@ func solvePartOne(input string) int {
 func solvePartTwo(input string) int {
 	_, count := removeGarbage(input)
 	return count
-}
-
-func parse(input string) string {
-	return input
 }
 
 func serialize(output int) string {

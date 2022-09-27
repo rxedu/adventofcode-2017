@@ -2,6 +2,8 @@ package day03
 
 import (
 	"strconv"
+
+	"github.com/rxedu/adventofcode-2017-go/internal/math"
 )
 
 func SolvePartOne(input string) string {
@@ -14,7 +16,7 @@ func SolvePartTwo(input string) string {
 
 func solvePartOne(input int) int {
 	adr := spiral(input)
-	return abs(adr.x) + abs(adr.y)
+	return math.AbsInt(adr.x) + math.AbsInt(adr.y)
 }
 
 func solvePartTwo(input int) int {
@@ -147,7 +149,7 @@ func nextZ(cur Address, a []Address, b []Address) int {
 	for _, adr := range a {
 		diffX := adr.x - cur.x
 		diffY := adr.y - cur.y
-		if abs(diffX)+abs(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
+		if math.AbsInt(diffX)+math.AbsInt(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
 			sum += adr.z
 		}
 	}
@@ -155,19 +157,12 @@ func nextZ(cur Address, a []Address, b []Address) int {
 	for _, adr := range b {
 		diffX := adr.x - cur.x
 		diffY := adr.y - cur.y
-		if abs(diffX)+abs(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
+		if math.AbsInt(diffX)+math.AbsInt(diffY) == 1 || diffX*diffX+diffY*diffY == 2 {
 			sum += adr.z
 		}
 	}
 
 	return sum
-}
-
-func abs(a int) int {
-	if a < 0 {
-		return -a
-	}
-	return a
 }
 
 func parse(input string) int {
