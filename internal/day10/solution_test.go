@@ -75,3 +75,12 @@ func TestDenseHash(t *testing.T) {
 		t.Errorf("%d; want 65", got[1])
 	}
 }
+
+func TestToHexString(t *testing.T) {
+	got := toHexString([]int{64, 7, 255})
+
+	if got != "4007ff" {
+		t.Errorf("%s; want 4007ff", got)
+	}
+
+}
