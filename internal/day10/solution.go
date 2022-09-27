@@ -44,7 +44,7 @@ func knotHash(lengths []int, list []int, cur int, skip int) ([]int, int, int) {
 	for _, length := range lengths {
 		length = length % size
 
-		target := make([]int, length)
+		var target []int
 		mid := (cur + length) % size
 		if cur <= mid {
 			target = list[cur:mid]
