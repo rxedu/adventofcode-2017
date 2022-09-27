@@ -13,6 +13,30 @@ type example struct {
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
 		{i: []Step{}, o: 0},
+		{i: []Step{
+			{1, -1, 0},
+			{1, -1, 0},
+			{1, -1, 0},
+		}, o: 3},
+		{i: []Step{
+			{1, -1, 0},
+			{1, -1, 0},
+			{-1, 1, 0},
+			{-1, 1, 0},
+		}, o: 0},
+		{i: []Step{
+			{1, -1, 0},
+			{1, -1, 0},
+			{0, 1, -1},
+			{0, 1, -1},
+		}, o: 2},
+		{i: []Step{
+			{1, 0, -1},
+			{-1, 1, 0},
+			{1, 0, -1},
+			{-1, 1, 0},
+			{-1, 1, 0},
+		}, o: 3},
 	}
 
 	var wg sync.WaitGroup

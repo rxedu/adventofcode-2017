@@ -3,6 +3,8 @@ package day11
 import (
 	"strconv"
 	"strings"
+
+	"github.com/rxedu/adventofcode-2017-go/internal/math"
 )
 
 func SolvePartOne(input string) string {
@@ -13,20 +15,34 @@ func SolvePartTwo(input string) string {
 	return serialize(solvePartTwo(parse(input)))
 }
 
-type Loc struct {
-	q int
-	r int
-	s int
-}
-
 type Step struct {
 	q int
 	r int
 	s int
 }
 
+type Loc struct {
+	q int
+	r int
+	s int
+}
+
+func (x Loc) add(v Step) Loc {
+	return Loc{x.q + v.q, x.r + v.r, x.s + v.s}
+}
+
+func (x Loc) dist(y Loc) int {
+	return math.Max(
+		math.Max(math.AbsInt(y.q-x.q), math.AbsInt(y.r-x.r)),
+		math.AbsInt(y.s-x.s))
+}
+
 func solvePartOne(input []Step) int {
-	return 0
+	x := Loc{0, 0, 0}
+	for _, v := range input {
+		x = x.add(v)
+	}
+	return x.dist(Loc{0, 0, 0})
 }
 
 func solvePartTwo(input []Step) int {
@@ -44,12 +60,12 @@ func parse(input string) []Step {
 
 func parseStep(step string) Step {
 	vectors := map[string]Step{
-		"nw": Step{-1, 0, 1},
-		"n":  Step{0, -1, 1},
-		"ne": Step{1, -1, 0},
-		"sw": Step{-1, 1, 0},
-		"s":  Step{0, 1, -1},
-		"se": Step{1, 0, -1},
+		"nw": {-1, 0, 1},
+		"n":  {0, -1, 1},
+		"ne": {1, -1, 0},
+		"sw": {-1, 1, 0},
+		"s":  {0, 1, -1},
+		"se": {1, 0, -1},
 	}
 	return vectors[step]
 }
