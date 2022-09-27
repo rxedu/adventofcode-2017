@@ -17,7 +17,7 @@ type exampleTwo struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []exampleOne{
-		{i: []int{1, 1}, o: 1},
+		{i: []int{1, 1}, o: 0},
 		{i: []int{3, 4, 1, 5}, o: 12},
 	}
 
