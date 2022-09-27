@@ -5,20 +5,26 @@ import (
 	"testing"
 )
 
-type example struct {
+type exampleOne struct {
 	i []int
 	o int
 }
 
+type exampleTwo struct {
+	i []int
+	o string
+}
+
 func TestPartOneExamples(t *testing.T) {
-	examples := []example{
+	examples := []exampleOne{
+		{i: []int{1, 1}, o: 1},
 		{i: []int{3, 4, 1, 5}, o: 12},
 	}
 
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e example) {
+		go func(e exampleOne) {
 
 			defer wg.Done()
 			got := solvePartOne(e.i, 5)
@@ -32,14 +38,17 @@ func TestPartOneExamples(t *testing.T) {
 }
 
 func TestPartTwoExamples(t *testing.T) {
-	examples := []example{
-		{i: []int{1, 1}, o: 1},
+	examples := []exampleTwo{
+		{i: []int{}, o: "a2582a3a0e66e6e86e3812dcb672a272"},
+		{i: []int{65, 111, 67, 32, 50, 48, 49, 55}, o: "33efeb34ea91902bb2f59c9920caa6cd"},
+		{i: []int{49, 44, 50, 44, 51}, o: "3efbe78a8d82f29979031a4aa0b16a9d"},
+		{i: []int{49, 44, 50, 44, 52}, o: "63960835bcdc130f0b66d7ff4f6a5a8e"},
 	}
 
 	var wg sync.WaitGroup
 	for _, e := range examples {
 		wg.Add(1)
-		go func(e example) {
+		go func(e exampleTwo) {
 
 			defer wg.Done()
 			got := solvePartTwo(e.i)

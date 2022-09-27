@@ -1,16 +1,17 @@
 package day10
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
 
 func SolvePartOne(input string) string {
-	return serialize(solvePartOne(parsePartOne(input), 256))
+	return serializePartOne(solvePartOne(parsePartOne(input), 256))
 }
 
 func SolvePartTwo(input string) string {
-	return serialize(solvePartTwo(parsePartTwo(input)))
+	return serializePartTwo(solvePartTwo(parsePartTwo(input)))
 }
 
 func solvePartOne(input []int, size int) int {
@@ -18,8 +19,33 @@ func solvePartOne(input []int, size int) int {
 	return list[0] * list[1]
 }
 
-func solvePartTwo(input []int) int {
-	return 1
+func solvePartTwo(input []int) string {
+	size := 256
+	chunkSize := 16
+	rounds := 64
+	cur := 0
+	skip := 0
+	var sparseHash []int
+
+	for i := 0; i < rounds; i++ {
+		sparseHash, cur, skip = knotHash(size, input, cur, skip)
+	}
+
+	denseHash := make([]int, size/chunkSize)
+	for i := 0; i < chunkSize; i++ {
+		for _, v := range sparseHash[i : i+chunkSize] {
+			denseHash[i] = v ^ denseHash[i]
+		}
+	}
+
+	var hash string
+	for _, v := range denseHash {
+		hash += fmt.Sprintf("%x", v)
+	}
+	fmt.Println(sparseHash)
+	fmt.Println(denseHash)
+
+	return hash
 }
 
 func knotHash(size int, input []int, cur int, skip int) ([]int, int, int) {
@@ -90,6 +116,10 @@ func parsePartTwo(input string) []int {
 	return append(arr, lengthSuffix...)
 }
 
-func serialize(output int) string {
+func serializePartOne(output int) string {
 	return strconv.Itoa(output)
+}
+
+func serializePartTwo(output string) string {
+	return output
 }
