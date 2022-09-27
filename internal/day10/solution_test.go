@@ -12,7 +12,7 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: []int{}, o: 0},
+		{i: []int{3, 4, 1, 5}, o: 12},
 	}
 
 	var wg sync.WaitGroup
@@ -21,7 +21,7 @@ func TestPartOneExamples(t *testing.T) {
 		go func(e example) {
 
 			defer wg.Done()
-			got := solvePartOne(e.i)
+			got := solvePartOne(e.i, 5)
 			if got != e.o {
 				t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, got)
 			}
@@ -33,7 +33,7 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: []int{}, o: 0},
+		{i: []int{1, 1}, o: 1},
 	}
 
 	var wg sync.WaitGroup
