@@ -15,7 +15,7 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input []int, size int) int {
-	list, _, _ := knotHash(size, input, 0, 0)
+	list, _, _ := knotHash(input, size, 0, 0)
 	return list[0] * list[1]
 }
 
@@ -28,7 +28,7 @@ func solvePartTwo(input []int) string {
 	var sparseHash []int
 
 	for i := 0; i < rounds; i++ {
-		sparseHash, cur, skip = knotHash(size, input, cur, skip)
+		sparseHash, cur, skip = knotHash(input, size, cur, skip)
 	}
 
 	denseHash := make([]int, size/chunkSize)
@@ -48,13 +48,13 @@ func solvePartTwo(input []int) string {
 	return hash
 }
 
-func knotHash(size int, input []int, cur int, skip int) ([]int, int, int) {
+func knotHash(lengths []int, size int, cur int, skip int) ([]int, int, int) {
 	list := make([]int, size)
 	for i := 0; i < len(list); i++ {
 		list[i] = i
 	}
 
-	for _, length := range input {
+	for _, length := range lengths {
 		length = length % size
 
 		target := make([]int, length)
