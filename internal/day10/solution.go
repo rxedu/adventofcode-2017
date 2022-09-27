@@ -25,15 +25,17 @@ func solvePartTwo(input []int) string {
 	rounds := 64
 	cur := 0
 	skip := 0
-	var sparseHash []int
 
+	var sparseHash []int
 	for i := 0; i < rounds; i++ {
 		sparseHash, cur, skip = knotHash(input, size, cur, skip)
 	}
 
 	denseHash := make([]int, size/chunkSize)
 	for i := 0; i < chunkSize; i++ {
-		for _, v := range sparseHash[i : i+chunkSize] {
+		start := chunkSize * i
+		end := start + chunkSize
+		for _, v := range sparseHash[start:end] {
 			denseHash[i] = v ^ denseHash[i]
 		}
 	}
