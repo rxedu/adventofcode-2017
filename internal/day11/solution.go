@@ -38,15 +38,23 @@ func (x Loc) dist(y Loc) int {
 }
 
 func solvePartOne(input []Step) int {
-	x := Loc{0, 0, 0}
+	origin := Loc{0, 0, 0}
+	x := origin
 	for _, v := range input {
 		x = x.add(v)
 	}
-	return x.dist(Loc{0, 0, 0})
+	return x.dist(origin)
 }
 
 func solvePartTwo(input []Step) int {
-	return 0
+	origin := Loc{0, 0, 0}
+	x := origin
+	var max int
+	for _, v := range input {
+		max = math.Max(max, x.dist(origin))
+		x = x.add(v)
+	}
+	return max
 }
 
 func parse(input string) []Step {
