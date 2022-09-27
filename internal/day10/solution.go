@@ -6,11 +6,11 @@ import (
 )
 
 func SolvePartOne(input string) string {
-	return serialize(solvePartOne(parse(input), 256))
+	return serialize(solvePartOne(parsePartOne(input), 256))
 }
 
 func SolvePartTwo(input string) string {
-	return serialize(solvePartTwo(parse(input)))
+	return serialize(solvePartTwo(parsePartTwo(input)))
 }
 
 func solvePartOne(input []int, size int) int {
@@ -66,7 +66,7 @@ func reverse(list []int) []int {
 	return reversed
 }
 
-func parse(input string) []int {
+func parsePartOne(input string) []int {
 	elements := strings.Split(input, ",")
 	arr := make([]int, len(elements))
 	for i, str := range elements {
@@ -77,6 +77,15 @@ func parse(input string) []int {
 		arr[i] = v
 	}
 	return arr
+}
+
+func parsePartTwo(input string) []int {
+	lengthSuffix := []int{17, 31, 73, 47, 23}
+	arr := make([]int, len(input))
+	for i, str := range input {
+		arr[i] = int(str)
+	}
+	return append(arr, lengthSuffix...)
 }
 
 func serialize(output int) string {
