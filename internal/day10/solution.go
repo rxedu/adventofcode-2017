@@ -40,7 +40,7 @@ func solvePartTwo(input []int) string {
 
 	var hash string
 	for _, v := range denseHash {
-		hash += fmt.Sprintf("%x", v)
+		hash += fmt.Sprintf("%02x", v)
 	}
 	fmt.Println(sparseHash)
 	fmt.Println(denseHash)
