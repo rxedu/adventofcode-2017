@@ -14,11 +14,24 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input map[int][]int) int {
-	return len(groupBy(0, input))
+	group := groupBy(0, input)
+	return len(group)
 }
 
 func solvePartTwo(input map[int][]int) int {
-	return 0
+	seen := make(map[int]bool, len(input))
+	count := 0
+	for idx := range input {
+		if seen[idx] {
+			continue
+		}
+		group := groupBy(idx, input)
+		for _, v := range group {
+			seen[v] = true
+		}
+		count++
+	}
+	return count
 }
 
 func groupBy(ID int, graph map[int][]int) []int {
