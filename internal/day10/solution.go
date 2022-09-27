@@ -11,7 +11,7 @@ func SolvePartOne(input string) string {
 }
 
 func SolvePartTwo(input string) string {
-	return serializePartTwo(solvePartTwo(parsePartTwo(input)))
+	return solvePartTwo(parsePartTwo(input))
 }
 
 func solvePartOne(input []int, size int) int {
@@ -134,8 +134,4 @@ func parsePartTwo(input string) []int {
 
 func serializePartOne(output int) string {
 	return strconv.Itoa(output)
-}
-
-func serializePartTwo(output string) string {
-	return output
 }
