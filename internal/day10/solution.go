@@ -30,6 +30,10 @@ func (h KnotHash) Hex() string {
 	return toHexString(h.Dense())
 }
 
+func (h KnotHash) Bin() string {
+	return toBinString(h.Dense())
+}
+
 func (h KnotHash) Dense() []int {
 	return knotHashBytes(h.bytes())
 }
@@ -108,6 +112,14 @@ func toHexString(denseHash []int) string {
 	var hash string
 	for _, v := range denseHash {
 		hash += fmt.Sprintf("%02x", v)
+	}
+	return hash
+}
+
+func toBinString(denseHash []int) string {
+	var hash string
+	for _, v := range denseHash {
+		hash += fmt.Sprintf("%08b", v)
 	}
 	return hash
 }
