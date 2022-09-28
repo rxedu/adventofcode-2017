@@ -3,6 +3,8 @@ package day13
 import (
 	"strconv"
 	"strings"
+
+	"github.com/rxedu/adventofcode-2017-go/internal/math"
 )
 
 func SolvePartOne(input string) string {
@@ -14,11 +16,32 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input map[int]int) int {
-	return 0
+	var maxDepth int
+	for idx := range input {
+		maxDepth = math.Max(idx, maxDepth)
+	}
+
+	severity := 0
+	for i := 0; i <= maxDepth; i++ {
+		r := input[i]
+		if isScannerAtTop(r, i) {
+			severity += i * r
+		}
+	}
+
+	return severity
 }
 
 func solvePartTwo(input map[int]int) int {
 	return 0
+}
+
+func isScannerAtTop(r int, t int) bool {
+	if r == 0 {
+		return false
+	}
+	period := 2 * (r - 1)
+	return t%period == 0
 }
 
 func parse(input string) map[int]int {
