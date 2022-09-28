@@ -20,14 +20,6 @@ func solvePartTwo(input string) int {
 	return 0
 }
 
-func stringToBytes(input string) []int {
-	arr := make([]int, len(input))
-	for i, str := range input {
-		arr[i] = int(str)
-	}
-	return arr
-}
-
 func serialize(output int) string {
 	return strconv.Itoa(output)
 }
