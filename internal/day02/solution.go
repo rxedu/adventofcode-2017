@@ -71,10 +71,10 @@ func parse(input string) [][]int {
 		matrix[i] = make([]int, len(strCols))
 		for j, v := range strCols {
 			w, err := strconv.Atoi(v)
-			matrix[i][j] = w
 			if err != nil {
 				panic(err)
 			}
+			matrix[i][j] = w
 		}
 	}
 
