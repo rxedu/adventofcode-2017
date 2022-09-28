@@ -16,10 +16,7 @@ func SolvePartTwo(input string) string {
 }
 
 func solvePartOne(input map[int]int) int {
-	var maxDepth int
-	for idx := range input {
-		maxDepth = math.Max(idx, maxDepth)
-	}
+	maxDepth := getMaxDepth(input)
 
 	severity := 0
 	for i := 0; i <= maxDepth; i++ {
@@ -33,7 +30,25 @@ func solvePartOne(input map[int]int) int {
 }
 
 func solvePartTwo(input map[int]int) int {
+	maxDelay := 100000000
+	for delay := 0; delay < maxDelay; delay++ {
+		if willGetThrough(input, delay) {
+			return delay
+		}
+	}
 	return 0
+}
+
+func willGetThrough(input map[int]int, delay int) bool {
+	maxDepth := getMaxDepth(input)
+	for i := 0; i <= maxDepth; i++ {
+		r := input[i]
+		t := i + delay
+		if isScannerAtTop(r, t) {
+			return false
+		}
+	}
+	return true
 }
 
 func isScannerAtTop(r int, t int) bool {
@@ -42,6 +57,14 @@ func isScannerAtTop(r int, t int) bool {
 	}
 	period := 2 * (r - 1)
 	return t%period == 0
+}
+
+func getMaxDepth(input map[int]int) int {
+	var maxDepth int
+	for idx := range input {
+		maxDepth = math.Max(idx, maxDepth)
+	}
+	return maxDepth
 }
 
 func parse(input string) map[int]int {

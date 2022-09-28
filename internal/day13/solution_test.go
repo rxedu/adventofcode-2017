@@ -40,6 +40,13 @@ func TestPartOneExamples(t *testing.T) {
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
 		{i: map[int]int{}, o: 0},
+		{i: map[int]int{0: 3}, o: 1},
+		{i: map[int]int{
+			0: 3,
+			1: 2,
+			4: 4,
+			6: 4,
+		}, o: 10},
 	}
 
 	var wg sync.WaitGroup
