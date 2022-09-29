@@ -16,11 +16,33 @@ func SolvePartTwo(input string) string {
 
 func solvePartOne(input []int, size int) int {
 	list := makeList(size)
-	list, _, _ = knotHash(input, list, 0, 0)
+	list, _, _ = knotHashRound(input, list, 0, 0)
 	return list[0] * list[1]
 }
 
 func solvePartTwo(input []int) string {
+	return toHexString(knotHashBytes(input))
+}
+
+type KnotHash string
+
+func (h KnotHash) Hex() string {
+	return toHexString(h.Dense())
+}
+
+func (h KnotHash) Bin() string {
+	return toBinString(h.Dense())
+}
+
+func (h KnotHash) Dense() []int {
+	return knotHashBytes(h.bytes())
+}
+
+func (h KnotHash) bytes() []int {
+	return stringToBytes(string(h))
+}
+
+func knotHashBytes(input []int) []int {
 	lengthSuffix := []int{17, 31, 73, 47, 23}
 
 	size := 256
@@ -32,14 +54,13 @@ func solvePartTwo(input []int) string {
 
 	sparseHash := makeList(size)
 	for i := 0; i < rounds; i++ {
-		sparseHash, cur, skip = knotHash(input, sparseHash, cur, skip)
+		sparseHash, cur, skip = knotHashRound(input, sparseHash, cur, skip)
 	}
 
-	hash := denseHash(sparseHash)
-	return toHexString(hash)
+	return denseHash(sparseHash)
 }
 
-func knotHash(lengths []int, list []int, cur int, skip int) ([]int, int, int) {
+func knotHashRound(lengths []int, list []int, cur int, skip int) ([]int, int, int) {
 	size := len(list)
 	for _, length := range lengths {
 		length = length % size
@@ -95,6 +116,14 @@ func toHexString(denseHash []int) string {
 	return hash
 }
 
+func toBinString(denseHash []int) string {
+	var hash string
+	for _, v := range denseHash {
+		hash += fmt.Sprintf("%08b", v)
+	}
+	return hash
+}
+
 func makeList(size int) []int {
 	list := make([]int, size)
 	for i := 0; i < len(list); i++ {
@@ -125,6 +154,10 @@ func parsePartOne(input string) []int {
 }
 
 func parsePartTwo(input string) []int {
+	return stringToBytes(input)
+}
+
+func stringToBytes(input string) []int {
 	arr := make([]int, len(input))
 	for i, str := range input {
 		arr[i] = int(str)

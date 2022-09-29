@@ -61,10 +61,10 @@ func parse(input string) []int {
 	arr := make([]int, len(strSlice))
 	for i, v := range strSlice {
 		w, err := strconv.Atoi(v)
-		arr[i] = w
 		if err != nil {
 			panic(err)
 		}
+		arr[i] = w
 	}
 	return arr
 }
