@@ -37,9 +37,9 @@ func TestPartOneExamples(t *testing.T) {
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
 		{i: Generators{
-			Generator{0, aFactor, aMultiple},
-			Generator{0, bFactor, bMultiple},
-		}, o: 0},
+			Generator{65, aFactor, aMultiple},
+			Generator{8921, bFactor, bMultiple},
+		}, o: 309},
 	}
 
 	var wg sync.WaitGroup

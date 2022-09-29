@@ -35,6 +35,12 @@ func (g *Generator) next() {
 	g.prev = next
 }
 
+func (g *Generator) observe(ch chan uint64) {
+	if g.prev%g.multiple == 0 {
+		ch <- g.prev
+	}
+}
+
 func solvePartOne(input Generators) int {
 	cycles := 40000000
 	count := 0
@@ -49,7 +55,35 @@ func solvePartOne(input Generators) int {
 }
 
 func solvePartTwo(input Generators) int {
-	return 0
+	maxCycles := 50000000
+	minCycles := 5000000
+	count := 0
+
+	chA := make(chan uint64)
+	chB := make(chan uint64)
+
+	go func() {
+		for i := 0; i < maxCycles; i++ {
+			input.a.observe(chA)
+			input.a.next()
+		}
+	}()
+
+	go func() {
+		for i := 0; i < maxCycles; i++ {
+			input.b.observe(chB)
+			input.b.next()
+		}
+	}()
+
+	for i := 0; i < minCycles; i++ {
+		a, b := <-chA, <-chB
+		if judge(a, b) {
+			count++
+		}
+	}
+
+	return count
 }
 
 func judge(a uint64, b uint64) bool {
