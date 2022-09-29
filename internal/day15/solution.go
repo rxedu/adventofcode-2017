@@ -14,6 +14,8 @@ func SolvePartTwo(input string) string {
 }
 
 const aFactor = 16807
+const aMultiple = 4
+const bMultiple = 8
 const bFactor = 48271
 const divisor = 2147483647
 
@@ -23,8 +25,9 @@ type Generators struct {
 }
 
 type Generator struct {
-	prev   uint64
-	factor uint64
+	prev     uint64
+	factor   uint64
+	multiple uint64
 }
 
 func (g *Generator) next() {
@@ -69,8 +72,8 @@ func parse(input string) Generators {
 	}
 
 	return Generators{
-		Generator{uint64(a), aFactor},
-		Generator{uint64(b), bFactor},
+		Generator{uint64(a), aFactor, aMultiple},
+		Generator{uint64(b), bFactor, bMultiple},
 	}
 }
 
