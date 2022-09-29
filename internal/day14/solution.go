@@ -22,7 +22,30 @@ func solvePartOne(input string) int {
 }
 
 func solvePartTwo(input string) int {
-	return 0
+	count := 0
+	grid, _ := makeGrid(input)
+	for i := range grid {
+		for j, v := range grid[i] {
+			if v != 0 {
+				count++
+			}
+			clearGroupStartingAt(grid, i, j)
+		}
+	}
+	return count
+}
+
+func clearGroupStartingAt(grid [][]int, i int, j int) {
+	iInRange := 0 <= i && i < len(grid)
+	jInRange := 0 <= j && j < len(grid)
+	if !iInRange || !jInRange || grid[i][j] == 0 {
+		return
+	}
+	grid[i][j] = 0
+	clearGroupStartingAt(grid, i+1, j)
+	clearGroupStartingAt(grid, i-1, j)
+	clearGroupStartingAt(grid, i, j+1)
+	clearGroupStartingAt(grid, i, j-1)
 }
 
 func makeGrid(input string) ([][]int, int) {
