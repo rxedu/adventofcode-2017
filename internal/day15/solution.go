@@ -32,15 +32,11 @@ func (g *Generator) next() {
 	g.prev = next
 }
 
-func (g *Generator) judge(h Generator) bool {
-	return uint16(g.prev) == uint16(h.prev)
-}
-
 func solvePartOne(input Generators) int {
 	cycles := 40000000
 	count := 0
 	for i := 0; i < cycles; i++ {
-		if input.a.judge(input.b) {
+		if judge(input.a.prev, input.b.prev) {
 			count++
 		}
 		input.a.next()
@@ -51,6 +47,10 @@ func solvePartOne(input Generators) int {
 
 func solvePartTwo(input Generators) int {
 	return 0
+}
+
+func judge(a uint64, b uint64) bool {
+	return uint16(a) == uint16(b)
 }
 
 func parse(input string) Generators {
