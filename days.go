@@ -15,6 +15,7 @@ import (
 	"github.com/rxedu/adventofcode-2017-go/internal/day12"
 	"github.com/rxedu/adventofcode-2017-go/internal/day13"
 	"github.com/rxedu/adventofcode-2017-go/internal/day14"
+	"github.com/rxedu/adventofcode-2017-go/internal/day15"
 )
 
 var solversPartOne []Solver
@@ -36,6 +37,7 @@ func initSolvers() {
 		day12.SolvePartOne,
 		day13.SolvePartOne,
 		day14.SolvePartOne,
+		day15.SolvePartOne,
 	}
 
 	solversPartTwo = []Solver{
@@ -53,5 +55,6 @@ func initSolvers() {
 		day12.SolvePartTwo,
 		day13.SolvePartTwo,
 		day14.SolvePartTwo,
+		day15.SolvePartTwo,
 	}
 }
