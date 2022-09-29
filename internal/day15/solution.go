@@ -13,13 +13,40 @@ func SolvePartTwo(input string) string {
 	return serialize(solvePartTwo(parse(input)))
 }
 
+const aFactor = 16807
+const bFactor = 48271
+const divisor = 2147483647
+
 type Generators struct {
-	a int
-	b int
+	a Generator
+	b Generator
+}
+
+type Generator struct {
+	prev   uint64
+	factor uint64
+}
+
+func (g *Generator) next() {
+	next := (g.prev * g.factor) % divisor
+	g.prev = next
+}
+
+func (g *Generator) judge(h Generator) bool {
+	return uint16(g.prev) == uint16(h.prev)
 }
 
 func solvePartOne(input Generators) int {
-	return 0
+	cycles := 40000000
+	count := 0
+	for i := 0; i < cycles; i++ {
+		if input.a.judge(input.b) {
+			count++
+		}
+		input.a.next()
+		input.b.next()
+	}
+	return count
 }
 
 func solvePartTwo(input Generators) int {
@@ -41,7 +68,10 @@ func parse(input string) Generators {
 		panic(err)
 	}
 
-	return Generators{a, b}
+	return Generators{
+		Generator{uint64(a), aFactor},
+		Generator{uint64(b), bFactor},
+	}
 }
 
 func serialize(output int) string {

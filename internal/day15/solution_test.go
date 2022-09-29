@@ -12,7 +12,10 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: Generators{0, 0}, o: 0},
+		{i: Generators{
+			Generator{65, aFactor},
+			Generator{8921, bFactor},
+		}, o: 588},
 	}
 
 	var wg sync.WaitGroup
@@ -33,7 +36,10 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: Generators{0, 0}, o: 0},
+		{i: Generators{
+			Generator{0, aFactor},
+			Generator{0, bFactor},
+		}, o: 0},
 	}
 
 	var wg sync.WaitGroup
