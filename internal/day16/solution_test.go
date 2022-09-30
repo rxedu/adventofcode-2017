@@ -43,7 +43,11 @@ func TestPartOneExamples(t *testing.T) {
 
 func TestPartTwoExamples(t *testing.T) {
 	examples := []example{
-		{i: []Step{}, o: []string{"a", "b", "c", "d", "e"}},
+		{i: []Step{
+			SpinStep{1},
+			ExchangeStep{3, 4},
+			PartnerStep{"e", "b"},
+		}, o: []string{"c", "e", "a", "d", "b"}},
 	}
 
 	var wg sync.WaitGroup
@@ -52,7 +56,7 @@ func TestPartTwoExamples(t *testing.T) {
 		go func(e example) {
 
 			defer wg.Done()
-			got := solvePartTwo(e.i, []string{"a", "b", "c", "d", "e"})
+			got := solvePartTwo(e.i, []string{"a", "b", "c", "d", "e"}, 2)
 			ok := true
 			for i, v := range got {
 				if v != e.o[i] {

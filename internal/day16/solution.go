@@ -11,7 +11,7 @@ func SolvePartOne(input string) string {
 }
 
 func SolvePartTwo(input string) string {
-	return serialize(solvePartTwo(parse(input), createDancers()))
+	return serialize(solvePartTwo(parse(input), createDancers(), 1000000000))
 }
 
 type Step interface {
@@ -67,7 +67,12 @@ func solvePartOne(input []Step, dancers []string) []string {
 	return dancers
 }
 
-func solvePartTwo(input []Step, dancers []string) []string {
+func solvePartTwo(input []Step, dancers []string, dances int) []string {
+	for i := 0; i < dances; i++ {
+		for _, step := range input {
+			step.dance(dancers)
+		}
+	}
 	return dancers
 }
 
