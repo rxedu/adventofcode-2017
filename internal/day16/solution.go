@@ -29,9 +29,7 @@ func (s SpinStep) dance(dancers []string) {
 		idx := (i + s.steps) % size
 		tmp[idx] = dancers[i]
 	}
-	for i, v := range tmp {
-		dancers[i] = v
-	}
+	copy(dancers, tmp)
 }
 
 type ExchangeStep struct {
