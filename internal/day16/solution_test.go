@@ -12,7 +12,11 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: []Step{}, o: []string{"a", "b", "c", "d", "e"}},
+		{i: []Step{
+			SpinStep{1},
+			ExchangeStep{3, 4},
+			PartnerStep{"e", "b"},
+		}, o: []string{"b", "a", "e", "d", "c"}},
 	}
 
 	var wg sync.WaitGroup
@@ -22,10 +26,14 @@ func TestPartOneExamples(t *testing.T) {
 
 			defer wg.Done()
 			got := solvePartOne(e.i, []string{"a", "b", "c", "d", "e"})
+			ok := true
 			for i, v := range got {
 				if v != e.o[i] {
-					t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, v)
+					ok = false
 				}
+			}
+			if !ok {
+				t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, got)
 			}
 		}(e)
 	}
@@ -45,10 +53,14 @@ func TestPartTwoExamples(t *testing.T) {
 
 			defer wg.Done()
 			got := solvePartTwo(e.i, []string{"a", "b", "c", "d", "e"})
+			ok := true
 			for i, v := range got {
 				if v != e.o[i] {
-					t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, v)
+					ok = false
 				}
+			}
+			if !ok {
+				t.Errorf("\n example (%v => %v)\nsolution (%v => %v)", e.i, e.o, e.i, got)
 			}
 		}(e)
 	}
