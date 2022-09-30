@@ -68,12 +68,39 @@ func solvePartOne(input []Step, dancers []string) []string {
 }
 
 func solvePartTwo(input []Step, dancers []string, dances int) []string {
-	for i := 0; i < dances; i++ {
+	loop, ok := findLoopPoint(input, dancers)
+
+	count := dances
+	if ok {
+		count = dances % loop
+	}
+
+	for i := 0; i < count; i++ {
 		for _, step := range input {
 			step.dance(dancers)
 		}
 	}
 	return dancers
+}
+
+func findLoopPoint(input []Step, dancers []string) (int, bool) {
+	max := 1000000
+	tmp := make([]string, len(dancers))
+	copy(tmp, dancers)
+	for i := 1; i < max; i++ {
+		for _, step := range input {
+			step.dance(tmp)
+
+			eq := true
+			for j, v := range dancers {
+				eq = eq && tmp[j] == v
+			}
+			if eq {
+				return i, true
+			}
+		}
+	}
+	return 0, false
 }
 
 func findDancerIndex(dancers []string, name string) (int, bool) {
