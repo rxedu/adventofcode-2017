@@ -13,3 +13,10 @@ builds:
     main: cmd/adventofcode/main.go
     env:
       - CGO_ENABLED=0
+
+archives:
+  - files:
+    - LICENSE.txt
+    - README.md
+    - CHANGELOG.md
+    - input/*.png
