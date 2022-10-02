@@ -7,12 +7,15 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/rxedu/adventofcode-2017-go"
 )
 
 const INPUT_PATH = "input"
 const OUTPUT_PATH = "solutions"
+
+var wg sync.WaitGroup
 
 func main() {
 	day := 1
@@ -36,20 +39,26 @@ func main() {
 	}
 
 	if len(os.Args) == 2 {
-		solveOne(day, 1)
-		solveOne(day, 2)
+		wg.Add(2)
+		go solveOne(day, 1)
+		go solveOne(day, 2)
+		wg.Wait()
 		return
 	}
 
 	if len(os.Args) > 2 {
-		solveOne(day, part)
+		wg.Add(1)
+		go solveOne(day, part)
+		wg.Wait()
 		return
 	}
 
 	for i := 1; i <= adventofcode.NumSolvedDays(); i++ {
-		solveOne(i, 1)
-		solveOne(i, 2)
+		wg.Add(2)
+		go solveOne(i, 1)
+		go solveOne(i, 2)
 	}
+	wg.Wait()
 }
 
 func solveOne(day int, part int) {
@@ -72,6 +81,8 @@ func solveOne(day int, part int) {
 		fmt.Printf("Error saving solution to day %d, part %d\n", day, part)
 		log.Fatal(err)
 	}
+
+	wg.Done()
 }
 
 func loadInput(day int) (string, error) {
