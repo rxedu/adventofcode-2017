@@ -14,22 +14,29 @@ func SolvePartTwo(input string) string {
 
 func solvePartOne(input int) int {
 	steps := 2017
+	buffer, cur := spin(steps, input)
+	return buffer[cur+1]
+}
+
+func solvePartTwo(input int) int {
+	steps := 50000000
+	buffer, _ := spin(steps, input)
+	return buffer[1]
+}
+
+func spin(steps int, jumps int) ([]int, int) {
 	buffer := []int{0}
 
 	cur := 0
 	for i := 1; i <= steps; i++ {
 		size := len(buffer)
-		idx := ((cur + input) % size) + 1
+		idx := ((cur + jumps) % size) + 1
 		buffer = append(buffer, 0)
 		copy(buffer[idx:], buffer[idx-1:])
 		buffer[idx] = i
 		cur = idx
 	}
-	return buffer[cur+1]
-}
-
-func solvePartTwo(input int) int {
-	return 0
+	return buffer, cur
 }
 
 func parse(input string) int {
