@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -38,30 +39,56 @@ func main() {
 		part = v
 	}
 
+	ch := make(chan Solution)
+
+	var solutions []Solution
+	go func() {
+		for s := range ch {
+			solutions = append(solutions, s)
+		}
+		wg.Done()
+	}()
+
 	if len(os.Args) == 2 {
 		wg.Add(2)
-		go solveOne(day, 1)
-		go solveOne(day, 2)
-		wg.Wait()
-		return
+		go solveOne(day, 1, ch)
+		go solveOne(day, 2, ch)
 	}
 
 	if len(os.Args) > 2 {
 		wg.Add(1)
-		go solveOne(day, part)
-		wg.Wait()
-		return
+		go solveOne(day, part, ch)
 	}
 
-	for i := 1; i <= adventofcode.NumSolvedDays(); i++ {
-		wg.Add(2)
-		go solveOne(i, 1)
-		go solveOne(i, 2)
+	if len(os.Args) == 1 {
+		for i := 1; i <= adventofcode.NumSolvedDays(); i++ {
+			wg.Add(2)
+			go solveOne(i, 1, ch)
+			go solveOne(i, 2, ch)
+		}
 	}
+
 	wg.Wait()
+
+	sort.SliceStable(solutions, func(i, j int) bool {
+		if solutions[i].day != solutions[j].day {
+			return solutions[i].day < solutions[j].day
+		}
+		return solutions[i].part < solutions[j].part
+	})
+
+	for _, s := range solutions {
+		fmt.Printf("Solution for day %02d, part %d: %s\n", s.day, s.part, s.answer)
+	}
 }
 
-func solveOne(day int, part int) {
+type Solution struct {
+	day    int
+	part   int
+	answer string
+}
+
+func solveOne(day int, part int, ch chan Solution) {
 	input, err := loadInput(day)
 	if err != nil {
 		fmt.Printf("Error loading input for day %v\n", day)
@@ -74,7 +101,7 @@ func solveOne(day int, part int) {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Solution for day %02d, part %d: %s\n", day, part, solution)
+	ch <- Solution{day, part, solution}
 	err = saveOutput(day, part, solution)
 
 	if err != nil {
