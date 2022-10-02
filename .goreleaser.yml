@@ -19,4 +19,4 @@ archives:
     - LICENSE.txt
     - README.md
     - CHANGELOG.md
-    - input/*.png
+    - input/*.txt
