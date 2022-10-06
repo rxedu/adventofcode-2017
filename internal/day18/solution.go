@@ -103,12 +103,11 @@ type JumpInstruction struct {
 func (instruction JumpInstruction) exec(i *int, registers map[string]int, recovered *[]int, played *[]int) {
 	x := instruction.x.Get(registers)
 	y := instruction.y.Get(registers)
+	offset := 1
 	if x > 0 {
-		j := *i + y
-		*i = j
-		return
+		offset = y
 	}
-	j := *i + 1
+	j := *i + offset
 	*i = j
 }
 
