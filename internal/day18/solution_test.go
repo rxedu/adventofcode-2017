@@ -12,7 +12,18 @@ type example struct {
 
 func TestPartOneExamples(t *testing.T) {
 	examples := []example{
-		{i: []Instruction{}, o: 0},
+		{i: []Instruction{
+			SetInstruction{Register{"a"}, Register{"1"}},
+			AddInstruction{Register{"a"}, Register{"2"}},
+			MultiplyInstruction{Register{"a"}, Register{"a"}},
+			ModInstruction{Register{"a"}, Register{"5"}},
+			PlayInstruction{Register{"a"}},
+			SetInstruction{Register{"a"}, Register{"0"}},
+			RecoverInstruction{Register{"a"}},
+			JumpInstruction{Register{"a"}, Register{"-1"}},
+			SetInstruction{Register{"a"}, Register{"1"}},
+			JumpInstruction{Register{"a"}, Register{"-2"}},
+		}, o: 4},
 	}
 
 	var wg sync.WaitGroup
