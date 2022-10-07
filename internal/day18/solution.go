@@ -160,9 +160,9 @@ func parseInstruction(instruction string) Instruction {
 	case "add":
 		return AddInstruction{Register{parts[1]}, Register{parts[2]}}
 	case "mul":
-		return AddInstruction{Register{parts[1]}, Register{parts[2]}}
+		return MultiplyInstruction{Register{parts[1]}, Register{parts[2]}}
 	case "mod":
-		return AddInstruction{Register{parts[1]}, Register{parts[2]}}
+		return ModInstruction{Register{parts[1]}, Register{parts[2]}}
 	case "rcv":
 		return RecoverInstruction{Register{parts[1]}}
 	case "jgz":
